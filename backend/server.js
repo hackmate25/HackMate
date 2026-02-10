@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3000;
 
 // ✅ Allow multiple origins
 const allowedOrigins = [
-  "https://hack-mate-ten.vercel.app",
+  "https://hackmate-official.vercel.app",
   "http://localhost:5173"
 ];
 
