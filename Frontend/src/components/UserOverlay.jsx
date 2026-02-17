@@ -58,7 +58,7 @@ const UserOverlay = ({ user, onClose, showAccept, onAccept, onReject }) => {
         {/* CLOSE */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 w-9 h-9 bg-red-100 text-red-600 rounded-full flex items-center justify-center hover:scale-110 z-10"
+          className="absolute top-3 right-3 w-9 h-9 bg-red-100 text-red-600 rounded-full flex items-center justify-center hover:scale-110 hover:bg-red-200 z-10 cursor-pointer transition"
         >
           <X size={18} />
         </button>

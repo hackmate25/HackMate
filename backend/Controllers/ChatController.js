@@ -1,4 +1,5 @@
 import ChatModel from "../Modules/Chat.js";
+import logger from "../utils/logger.js";
 
 // 🔹 Get all chats of logged-in user (for navbar / chat sidebar)
 const getMyChats = async (req, res) => {
@@ -16,7 +17,7 @@ const getMyChats = async (req, res) => {
       chats,
     });
   } catch (err) {
-    console.error("GET MY CHATS ERROR:", err);
+    logger.error("GET MY CHATS ERROR:", err);
     res.status(500).json({
       success: false,
       message: "Failed to fetch chats",
@@ -54,7 +55,7 @@ const getChatById = async (req, res) => {
       chat,
     });
   } catch (err) {
-    console.error("GET CHAT BY ID ERROR:", err);
+    logger.error("GET CHAT BY ID ERROR:", err);
     res.status(500).json({
       success: false,
       message: "Error fetching chat",

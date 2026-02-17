@@ -39,11 +39,15 @@ const Login = () => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
 
-      console.log('✅ Login successful:', data);
+      if (import.meta.env.MODE === 'development') {
+        console.log('Login successful');
+      }
 
       navigate('/welcome');
     } catch (err) {
-      console.error('❌ Login error:', err);
+      if (import.meta.env.MODE === 'development') {
+        console.error('Login error:', err);
+      }
       setError(err.message || 'Network error. Please try again.');
     } finally {
       setLoading(false);

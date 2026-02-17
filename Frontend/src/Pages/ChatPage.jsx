@@ -53,7 +53,9 @@ const ChatPage = () => {
           setLocked(data.chat.isLocked);
         }
       } catch (err) {
-        console.error("Chat fetch error:", err.message);
+        if (import.meta.env.MODE === 'development') {
+          console.error("Chat fetch error:", err.message);
+        }
       }
     };
 
@@ -114,7 +116,7 @@ const ChatPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <Navbar />
 
-      <div className="ml-72 max-w-7xl mx-auto py-10 px-6">
+      <div className="lg:ml-72 pt-14 lg:pt-0 max-w-7xl mx-auto py-10 px-4 sm:px-6 h-screen flex flex-col">
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl overflow-hidden flex h-[75vh] shadow-2xl border border-white/20">
 
           {/* LEFT SIDEBAR PLACEHOLDER */}
@@ -206,7 +208,7 @@ const ChatPage = () => {
               <button
                 onClick={sendMessage}
                 disabled={locked}
-                className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-8 rounded-xl font-semibold disabled:opacity-50"
+                className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-8 rounded-xl font-semibold disabled:opacity-50 cursor-pointer transition"
               >
                 Send
               </button>

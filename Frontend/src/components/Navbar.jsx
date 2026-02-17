@@ -80,7 +80,7 @@ const Navbar = () => {
         <div className="px-4 space-y-3 pb-6 border-b border-gray-200/50">
           <button
             onClick={() => navigate("/chat")}
-            className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl font-semibold transition ${
+            className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl font-semibold transition cursor-pointer ${
               isActive("/chat")
                 ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
                 : "bg-white/50 hover:bg-white/80 text-gray-700"
@@ -92,7 +92,7 @@ const Navbar = () => {
 
           <button
             onClick={() => navigate("/profile")}
-            className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl font-semibold transition ${
+            className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl font-semibold transition cursor-pointer ${
               isActive("/profile")
                 ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
                 : "bg-white/50 hover:bg-white/80 text-gray-700"
@@ -116,7 +116,7 @@ const Navbar = () => {
             <button
               key={path}
               onClick={() => navigate(path)}
-              className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl transition ${
+              className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl transition cursor-pointer ${
                 isActive(path)
                   ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg"
                   : "bg-white/30 hover:bg-white/60 text-gray-700"
@@ -132,7 +132,7 @@ const Navbar = () => {
         <div className="px-4 py-6 border-t border-gray-200/50">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-4 px-5 py-3 rounded-xl bg-gradient-to-r from-red-500 to-rose-500 text-white font-semibold shadow-lg hover:scale-105 transition"
+            className="w-full flex items-center gap-4 px-5 py-3 rounded-xl bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white font-semibold shadow-lg hover:scale-105 transition cursor-pointer"
           >
             <LogOut size={20} />
             Logout
@@ -144,7 +144,7 @@ const Navbar = () => {
       {/* ================= MOBILE HEADER ================= */}
       {/* ================================================= */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-white/80 backdrop-blur-xl border-b flex items-center px-4 z-40">
-        <button onClick={() => setOpen(true)}>
+        <button onClick={() => setOpen(true)} className="cursor-pointer hover:opacity-70 transition">
           <Menu size={26} />
         </button>
 
@@ -175,7 +175,7 @@ const Navbar = () => {
               <h2 className="font-bold text-xl text-blue-600">
                 HackMate
               </h2>
-              <button onClick={() => setOpen(false)}>
+              <button onClick={() => setOpen(false)} className="cursor-pointer hover:opacity-70 transition">
                 <X size={26} />
               </button>
             </div>
@@ -187,10 +187,10 @@ const Navbar = () => {
                   navigate("/chat");
                   setOpen(false);
                 }}
-                className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl ${
+                className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl transition cursor-pointer ${
                   isActive("/chat")
                     ? "bg-blue-600 text-white"
-                    : "bg-gray-100"
+                    : "bg-gray-100 hover:bg-gray-200"
                 }`}
               >
                 <MessageCircle size={20} />
@@ -202,10 +202,10 @@ const Navbar = () => {
                   navigate("/profile");
                   setOpen(false);
                 }}
-                className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl ${
+                className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl transition cursor-pointer ${
                   isActive("/profile")
                     ? "bg-blue-600 text-white"
-                    : "bg-gray-100"
+                    : "bg-gray-100 hover:bg-gray-200"
                 }`}
               >
                 <img
@@ -225,10 +225,10 @@ const Navbar = () => {
                     navigate(path);
                     setOpen(false);
                   }}
-                  className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl ${
+                  className={`w-full flex items-center gap-4 px-5 py-3 rounded-xl transition cursor-pointer ${
                     isActive(path)
                       ? "bg-blue-600 text-white"
-                      : "bg-gray-100"
+                      : "bg-gray-100 hover:bg-gray-200"
                   }`}
                 >
                   <Icon size={20} />
@@ -241,7 +241,7 @@ const Navbar = () => {
             <div className="px-4 py-6 border-t">
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-4 px-5 py-3 rounded-xl bg-red-500 text-white font-semibold"
+                className="w-full flex items-center gap-4 px-5 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold transition cursor-pointer"
               >
                 <LogOut size={20} />
                 Logout

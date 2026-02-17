@@ -17,7 +17,9 @@ const PendingRequests = () => {
       const data = await res.json();
       setUsers(data.pendingRequests || []);
     } catch (err) {
-      console.error("Fetch pending requests error:", err.message);
+      if (import.meta.env.MODE === 'development') {
+        console.error("Fetch pending requests error:", err.message);
+      }
     }
   };
 
@@ -33,7 +35,7 @@ const PendingRequests = () => {
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => navigate("/discover")}
-            className="w-10 h-10 md:w-12 md:h-12 bg-white/70 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 border border-white/20"
+            className="w-10 h-10 md:w-12 md:h-12 bg-white/70 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 border border-white/20 cursor-pointer"
           >
             ←
           </button>

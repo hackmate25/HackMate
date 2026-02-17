@@ -26,7 +26,11 @@ const Profile = () => {
           setForm(d.profile);
         }
       })
-      .catch((err) => console.error("Profile fetch error:", err.message));
+      .catch((err) => {
+        if (import.meta.env.MODE === 'development') {
+          console.error("Profile fetch error:", err.message);
+        }
+      });
   }, []);
 
   /* ---------------- IMAGE UPLOAD ---------------- */
@@ -89,7 +93,9 @@ const Profile = () => {
       }
     } catch (err) {
       alert("Save failed");
-      console.error("Profile save error:", err.message);
+      if (import.meta.env.MODE === 'development') {
+        console.error("Profile save error:", err.message);
+      }
     }
   };
 
@@ -105,11 +111,11 @@ const Profile = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <Navbar />
 
-      <div className="ml-72 max-w-6xl mx-auto py-10 px-6">
-        <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-10 flex gap-12 border border-white/20">
+      <div className="lg:ml-72 max-w-6xl mx-auto py-10 px-4 md:px-6">
+        <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-6 md:p-10 flex flex-col md:flex-row gap-8 md:gap-12 border border-white/20">
 
           {/* ---------------- LEFT ---------------- */}
-          <div className="w-1/3 flex flex-col items-center">
+          <div className="w-full md:w-1/3 flex flex-col items-center">
             <div className="relative">
               <img
                 src={profile.profileImage || "https://i.pravatar.cc/300"}
@@ -145,7 +151,7 @@ const Profile = () => {
           </div>
 
           {/* ---------------- RIGHT ---------------- */}
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             {!edit ? (
               <>
                 <Display label="About me" value={profile.bio} />
@@ -163,7 +169,7 @@ const Profile = () => {
 
                 <button
                   onClick={() => setEdit(true)}
-                  className="mt-8 px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105"
+                  className="mt-8 px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105 cursor-pointer"
                 >
                   Edit Profile ✏️
                 </button>
@@ -212,7 +218,7 @@ const Profile = () => {
                     Save Changes
                   </button>
                   <button onClick={() => setEdit(false)}
-                    className="bg-gray-200 hover:bg-gray-300 px-8 py-3 rounded-xl font-semibold transition-all duration-200">
+                    className="bg-gray-200 hover:bg-gray-300 px-8 py-3 rounded-xl font-semibold transition-all duration-200 cursor-pointer">
                     Cancel
                   </button>
                 </div>
@@ -304,7 +310,7 @@ const TagInput = ({ label, values, setValues }) => {
         {values.map((v, i) => (
           <span key={i} className="bg-blue-500 text-white px-4 py-1 rounded-full flex gap-2">
             {v}
-            <button onClick={() => setValues(values.filter((_, x) => x !== i))}>
+            <button onClick={() => setValues(values.filter((_, x) => x !== i))} className="cursor-pointer hover:opacity-70 transition">
               ×
             </button>
           </span>

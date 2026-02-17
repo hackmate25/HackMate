@@ -6,12 +6,14 @@ export const sendEmail = async ({ to, subject, text }) => {
   try {
     await sgMail.send({
       to,
-      from: process.env.EMAIL_FROM, // verified sender
+      from: process.env.EMAIL_FROM,
       subject,
       text,
     });
-    console.log("📧 Email sent to:", to);
   } catch (err) {
-    console.error("❌ Email failed:", err.message);
+    if (process.env.NODE_ENV !== "production") {
+      console.error("Email error:", err.message);
+    }
+    throw err;
   }
 };

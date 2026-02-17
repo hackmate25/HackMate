@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import sgMail from "@sendgrid/mail";
+import logger from "../utils/logger.js";
 
 dotenv.config();
 
@@ -40,7 +41,7 @@ const signupInit = async (req, res) => {
       createdAt: Date.now(),
     };
 
-    console.log("📩 Sending OTP via SendGrid to:", email, "OTP:", otp);
+    console.log("Sending OTP to:", email);
 
     // send OTP email with SendGrid
     const msg = {
@@ -52,14 +53,14 @@ const signupInit = async (req, res) => {
 
     await sgMail.send(msg);
 
-    console.log("✅ OTP sent successfully via SendGrid");
+    // OTP sent
 
     return res.status(200).json({
       message: "OTP sent to email",
       success: true,
     });
   } catch (error) {
-    console.error("❌ Error while sending OTP:", error);
+    logger.error("Error in signup-init:", error);
     return res.status(500).json({
       message: "Error in signup-init",
       success: false,
@@ -116,7 +117,7 @@ const verifyOtp = async (req, res) => {
       user: { name: newUser.name, email: newUser.email, id: newUser._id },
     });
   } catch (error) {
-    console.error("❌ Error verifying OTP:", error);
+    logger.error("Error verifying OTP:", error);
     res.status(500).json({ message: "Error verifying OTP", success: false, error: error.message });
   }
 };
@@ -156,7 +157,7 @@ const login = async (req, res) => {
       user: { name: user.name, email: user.email },
     });
   } catch (error) {
-    console.error("❌ Error in login:", error);
+    logger.error("Error in login:", error);
     res.status(500).json({
       message: "Error in login",
       success: false,

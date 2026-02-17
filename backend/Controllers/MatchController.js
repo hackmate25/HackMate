@@ -1,6 +1,7 @@
 import UserModel from "../Modules/User.js";
 import ChatModel from "../Modules/Chat.js";
 import { sendEmail } from "../utils/emailService.js";
+import logger from "../utils/logger.js";
 
 /* ===================== SWIPE USER ===================== */
 const swipeUser = async (req, res) => {
@@ -61,7 +62,7 @@ Check your pending requests and respond before someone else teams up 😉
       message: "User selected successfully",
     });
   } catch (err) {
-    console.error("❌ swipeUser error:", err);
+    logger.error("swipeUser error:", err);
     res.status(500).json({
       success: false,
       message: "Error in swiping user",
@@ -153,7 +154,7 @@ The chat is now open — break the ice and get to work!
       message: "Request accepted, matched & chat created",
     });
   } catch (err) {
-    console.error("❌ acceptRequest error:", err);
+    logger.error("acceptRequest error:", err);
     res.status(500).json({
       success: false,
       message: "Error accepting request",
@@ -193,7 +194,7 @@ const rejectRequest = async (req, res) => {
       message: "Request rejected",
     });
   } catch (err) {
-    console.error("❌ rejectRequest error:", err);
+    logger.error("rejectRequest error:", err);
     res.status(500).json({
       success: false,
       message: "Error rejecting request",

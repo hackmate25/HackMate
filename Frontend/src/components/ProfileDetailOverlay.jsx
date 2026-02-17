@@ -73,7 +73,7 @@ const ProfileDetailOverlay = ({ user, onClose, onSelect }) => {
         {/* CLOSE */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-20 text-white hover:text-red-400"
+          className="absolute top-3 right-3 z-20 text-white hover:text-red-400 cursor-pointer transition"
         >
           <X size={26} />
         </button>
@@ -122,7 +122,7 @@ const ProfileDetailOverlay = ({ user, onClose, onSelect }) => {
           {/* STAR */}
           <button
             onClick={onSelect}
-            className="absolute bottom-4 right-4 text-yellow-400 hover:scale-125 transition"
+            className="absolute bottom-4 right-4 text-yellow-400 hover:scale-125 transition cursor-pointer"
           >
             <Star size={34} fill="currentColor" />
           </button>

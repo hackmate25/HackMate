@@ -22,7 +22,9 @@ const ChatListPage = () => {
         }
       } catch (err) {
         // 🔐 Token expiry handled centrally in apiFetch
-        console.error("Chat list fetch error:", err.message);
+        if (import.meta.env.MODE === 'development') {
+          console.error("Chat list fetch error:", err.message);
+        }
       }
     };
 
@@ -37,7 +39,7 @@ const ChatListPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <Navbar />
 
-      <div className="ml-72 max-w-7xl mx-auto py-10 px-6">
+      <div className="lg:ml-72 pt-14 lg:pt-0 max-w-7xl mx-auto py-10 px-4 sm:px-6">
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl overflow-hidden flex h-[75vh] shadow-2xl border border-white/20">
           
           {/* LEFT SIDEBAR */}
