@@ -10,7 +10,7 @@ const WelcomeScreen = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShow(false); // trigger fade out
-      setTimeout(() => navigate("/discover"),700); // navigate after fade
+      setTimeout(() => navigate("/discover"),400); // navigate after fade
     }, 5000); // 4 sec wait
     return () => clearTimeout(timer);
   }, [navigate]);
@@ -29,7 +29,7 @@ const WelcomeScreen = () => {
       <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-black/40 to-transparent"></div>
 
       {/* Animated letters */}
-      <h1 className="flex space-x-1 text-5xl md:text-7xl -mt-30 font-extrabold text-white drop-shadow-[10px_10px_15px_#14274E] z-10">
+      <h1 className="flex space-x-1 text-2xl sm:text-4xl md:text-7xl -mt-20 sm:-mt-24 md:-mt-30 font-extrabold text-white drop-shadow-[10px_10px_15px_#14274E] z-10 px-4">
         {letters.map((letter, i) => (
           <motion.span
             key={i}
@@ -47,7 +47,7 @@ const WelcomeScreen = () => {
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: [0.5, 1.2, 1], opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-70 text-5xl md:text-7xl font-normal text-[#14274E] drop-shadow-[10px_10px_15px_#14274E]"
+        className="absolute bottom-40 sm:bottom-60 md:bottom-70 text-2xl sm:text-4xl md:text-7xl font-normal text-[#14274E] drop-shadow-[10px_10px_15px_#14274E] px-4 text-center"
       >
         To HackMate
       </motion.h2>

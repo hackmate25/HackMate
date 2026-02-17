@@ -31,16 +31,16 @@ const PendingRequests = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <Navbar />
 
-      <div className="lg:ml-72 pt-14 lg:pt-9 max-w-7xl mx-auto py-10 px-4 sm:px-6">
-        <div className="flex items-center gap-4 mb-8">
+      <div className="lg:ml-72 pt-16 sm:pt-20 lg:pt-9 max-w-7xl mx-auto py-6 sm:py-10 px-2 sm:px-4 lg:px-6">
+        <div className="flex items-center gap-2 sm:gap-4 mb-6 sm:mb-8">
           <button
             onClick={() => navigate("/discover")}
-            className="w-10 h-10 md:w-12 md:h-12 bg-white/70 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 border border-white/20 cursor-pointer"
+            className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white/70 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 border border-white/20 cursor-pointer text-sm sm:text-base flex-shrink-0"
           >
             ←
           </button>
 
-          <div className="bg-white/70 backdrop-blur-sm px-5 md:px-8 py-2 md:py-3 rounded-full shadow-lg font-semibold text-gray-800 border border-white/20 text-sm md:text-base">
+          <div className="bg-white/70 backdrop-blur-sm px-3 sm:px-5 md:px-8 py-2 md:py-3 rounded-full shadow-lg font-semibold text-gray-800 border border-white/20 text-xs sm:text-sm md:text-base">
             Pending Requests ({users.length})
           </div>
         </div>

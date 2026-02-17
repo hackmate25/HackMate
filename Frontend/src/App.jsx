@@ -10,7 +10,7 @@ import WelcomeScreen from "./Pages/WelcomeScreen";
 import OnboardingStep1 from "./Pages/OnboardingStep1";
 import OnboardingStep2 from "./Pages/OnboardingStep2";
 import OnboardingStep3 from "./Pages/OnboardingStep3";
-import ConfirmDetails from "./Pages/ConfirmDetails";
+
 
 import Discover from "./Pages/Discover";
 import PendingRequests from "./Pages/PendingRequests";
@@ -37,7 +37,7 @@ const App = () => {
         <Route path="/details" element={<OnboardingStep1 />} />
         <Route path="/your-info" element={<OnboardingStep2 />} />
         <Route path="/skills" element={<OnboardingStep3 />} />
-        <Route path="/confirmDetails" element={<ConfirmDetails />} />
+
 
         {/* Core App */}
         <Route path="/discover" element={<Discover />} />

@@ -178,31 +178,31 @@ const ChatPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <Navbar />
 
-      <div className="lg:ml-72 pt-14 lg:pt-0 max-w-7xl mx-auto py-10 px-4 sm:px-6 h-screen flex flex-col">
-        <div className="bg-white/70 backdrop-blur-xl rounded-3xl overflow-hidden flex flex-col h-[75vh] shadow-2xl border border-white/20">
+      <div className="lg:ml-72 pt-14 lg:pt-0 max-w-7xl mx-auto py-4 sm:py-10 px-2 sm:px-4 lg:px-6 h-screen flex flex-col">
+        <div className="bg-white/70 backdrop-blur-xl rounded-2xl lg:rounded-3xl overflow-hidden flex flex-col h-[75vh] shadow-2xl border border-white/20">
 
           {/* HEADER */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-between px-6 font-semibold shadow-lg"
+            className="h-12 sm:h-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-between px-3 sm:px-6 font-semibold shadow-lg"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <button
                 onClick={() => navigate("/chat-list")}
-                className="lg:hidden p-2 rounded-lg hover:bg-blue-500/50 transition-all cursor-pointer"
+                className="lg:hidden p-1 sm:p-2 rounded-lg hover:bg-blue-500/50 transition-all cursor-pointer flex-shrink-0"
               >
                 <ArrowLeft size={20} />
               </button>
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm sm:text-base flex-shrink-0">
                 {otherUser?.name?.charAt(0)}
               </div>
-              <div>
-                <p className="text-base">{otherUser?.name}</p>
-                <p className="text-xs font-light opacity-75">Online</p>
+              <div className="min-w-0">
+                <p className="text-xs sm:text-base truncate">{otherUser?.name}</p>
+                <p className="text-xs font-light opacity-75 hidden sm:block">Online</p>
               </div>
             </div>
-            <div className="text-sm opacity-75">
+            <div className="text-xs sm:text-sm opacity-75 flex-shrink-0">
               {messages.length}/{chat.messageLimit}
             </div>
           </motion.div>
@@ -224,7 +224,7 @@ const ChatPage = () => {
           </div>
 
           {/* MESSAGES CONTAINER */}
-          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-4 scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-transparent">
+          <div className="flex-1 overflow-y-auto px-2 sm:px-4 lg:px-6 py-3 sm:py-4 space-y-2 sm:space-y-4 scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-transparent">
             <AnimatePresence mode="popLayout">
               {messages.length === 0 ? (
                 <motion.div
@@ -233,9 +233,9 @@ const ChatPage = () => {
                   className="flex items-center justify-center h-full"
                 >
                   <div className="text-center text-gray-400">
-                    <p className="text-4xl mb-2">💬</p>
-                    <p className="font-medium">No messages yet</p>
-                    <p className="text-sm">Say hello to {otherUser?.name}!</p>
+                    <p className="text-2xl sm:text-4xl mb-2">💬</p>
+                    <p className="font-medium text-sm sm:text-base">No messages yet</p>
+                    <p className="text-xs sm:text-sm">Say hello to {otherUser?.name}!</p>
                   </div>
                 </motion.div>
               ) : (
@@ -254,23 +254,23 @@ const ChatPage = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      className={`flex items-end gap-2 ${
+                      className={`flex items-end gap-1 sm:gap-2 ${
                         isMe ? "justify-end" : "justify-start"
                       }`}
                     >
                       {!isMe && (
                         <motion.div
                           whileHover={{ scale: 1.1 }}
-                          className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-white flex items-center justify-center text-sm font-semibold flex-shrink-0 shadow-sm"
+                          className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-white flex items-center justify-center text-xs sm:text-sm font-semibold flex-shrink-0 shadow-sm"
                         >
                           {otherUser?.name?.charAt(0)}
                         </motion.div>
                       )}
 
-                      <div className="flex flex-col max-w-[70%] sm:max-w-[60%]">
+                      <div className="flex flex-col max-w-xs sm:max-w-sm lg:max-w-[70%]">
                         <motion.div
                           whileHover={{ scale: 1.02 }}
-                          className={`px-4 sm:px-5 py-3 rounded-2xl text-sm shadow-md backdrop-blur-sm transition-all ${
+                          className={`px-3 sm:px-4 lg:px-5 py-2 sm:py-3 rounded-lg sm:rounded-2xl text-xs sm:text-sm shadow-md backdrop-blur-sm transition-all ${
                             isMe
                               ? "bg-gradient-to-r from-green-400/90 to-emerald-400/90 text-white rounded-br-sm border border-green-300/50"
                               : "bg-white/90 text-gray-800 rounded-bl-sm border border-gray-200/50"
@@ -280,7 +280,7 @@ const ChatPage = () => {
                         </motion.div>
 
                         <span
-                          className={`text-[10px] mt-1.5 font-medium ${
+                          className={`text-[8px] sm:text-[10px] mt-1 font-medium ${
                             isMe
                               ? "text-right text-gray-400"
                               : "text-left text-gray-400"
@@ -293,7 +293,7 @@ const ChatPage = () => {
                       {isMe && (
                         <motion.div
                           whileHover={{ scale: 1.1 }}
-                          className="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm"
+                          className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 shadow-sm"
                         >
                           ✓
                         </motion.div>
@@ -311,12 +311,12 @@ const ChatPage = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="flex items-end gap-2"
+                  className="flex items-end gap-1 sm:gap-2"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gray-300 text-white flex items-center justify-center text-sm font-semibold">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-300 text-white flex items-center justify-center text-xs sm:text-sm font-semibold">
                     {otherUser?.name?.charAt(0)}
                   </div>
-                  <div className="bg-gray-200 px-4 py-3 rounded-2xl rounded-bl-sm">
+                  <div className="bg-gray-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-2xl rounded-bl-sm">
                     <div className="flex gap-1">
                       <motion.div
                         animate={{ y: [0, -8, 0] }}
@@ -349,7 +349,7 @@ const ChatPage = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="mx-4 p-3 bg-red-50 border border-red-200 rounded-lg"
+                className="mx-2 sm:mx-4 p-2 sm:p-3 bg-red-50 border border-red-200 rounded-lg"
               >
                 <p className="text-red-600 text-sm font-medium text-center">
                   ⚠️ Chat locked. Message limit reached.
@@ -378,9 +378,9 @@ const ChatPage = () => {
               placeholder={
                 locked
                   ? "Chat locked (limit reached)"
-                  : "Type your message..."
+                  : "Type a message..."
               }
-              className="flex-1 border-2 border-gray-200 rounded-xl px-4 sm:px-5 py-3 outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition-all disabled:opacity-50 disabled:bg-gray-100"
+              className="flex-1 border-2 border-gray-200 rounded-lg sm:rounded-xl px-2 sm:px-4 lg:px-5 py-2 sm:py-3 text-xs sm:text-base outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition-all disabled:opacity-50 disabled:bg-gray-100 min-h-10"
             />
 
             <motion.button
@@ -388,10 +388,10 @@ const ChatPage = () => {
               disabled={locked || !text.trim()}
               whileHover={!locked && text.trim() ? { scale: 1.05 } : {}}
               whileTap={!locked && text.trim() ? { scale: 0.95 } : {}}
-              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-gray-400 disabled:to-gray-400 text-white px-6 sm:px-8 rounded-xl font-semibold disabled:opacity-50 cursor-pointer transition-all shadow-md hover:shadow-lg flex items-center gap-2"
+              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-gray-400 disabled:to-gray-400 text-white px-3 sm:px-6 lg:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl font-semibold disabled:opacity-50 cursor-pointer transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-1 sm:gap-2 flex-shrink-0 min-h-10"
             >
-              <Send size={18} />
-              <span className="hidden sm:inline">Send</span>
+              <Send size={16} className="sm:size-18 flex-shrink-0" />
+              <span className="hidden sm:inline text-xs sm:text-sm">Send</span>
             </motion.button>
           </motion.div>
         </div>

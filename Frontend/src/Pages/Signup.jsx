@@ -126,18 +126,18 @@ const Signup = () => {
 
   return (
     <div
-      className="h-screen flex flex-col justify-center items-center bg-cover bg-center relative"
+      className="w-screen h-screen flex flex-col justify-center items-center bg-cover bg-center relative"
       style={{ backgroundImage: `url(${mainbg})` }}
     >
       <ToastContainer position="top-right" autoClose={3000} />
 
-      <div className="flex flex-col items-center -mt-10 w-full max-w-md px-6">
-        <h1 className="text-5xl mb-10 text-[#395EAA] font-['Lexend_Exa'] font-normal">
+      <div className="flex flex-col items-center -mt-10 w-full max-w-md px-3 sm:px-6 lg:px-8">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl mb-6 sm:mb-10 text-[#395EAA] font-['Lexend_Exa'] font-normal">
           Sign Up
         </h1>
 
         {step === 1 ? (
-          <form className="w-full flex flex-col gap-4" onSubmit={handleSignupInit}>
+          <form className="w-full flex flex-col gap-3 sm:gap-4 text-sm sm:text-base" onSubmit={handleSignupInit}>
             <input
               type="text"
               placeholder="Full Name"
@@ -145,7 +145,7 @@ const Signup = () => {
               onChange={(e) => setName(e.target.value)}
               required
               disabled={loading}
-              className="w-full px-4 py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
             />
             <input
               type="email"
@@ -154,7 +154,7 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
-              className="w-full px-4 py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
             />
             <input
               type="password"
@@ -164,7 +164,7 @@ const Signup = () => {
               required
               minLength="6"
               disabled={loading}
-              className="w-full px-4 py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
             />
             <input
               type="password"
@@ -174,18 +174,18 @@ const Signup = () => {
               required
               minLength="6"
               disabled={loading}
-              className="w-full px-4 py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
             />
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center cursor-pointer"
+              className="w-full py-2 sm:py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center cursor-pointer text-sm sm:text-base font-medium"
             >
               {loading ? "Sending OTP..." : "Create Account"}
             </button>
           </form>
         ) : (
-          <form className="w-full flex flex-col gap-4" onSubmit={handleVerifyOtp}>
+          <form className="w-full flex flex-col gap-3 sm:gap-4 text-sm sm:text-base" onSubmit={handleVerifyOtp}>
             <input
               type="text"
               placeholder="Enter OTP"
@@ -193,12 +193,12 @@ const Signup = () => {
               onChange={(e) => setOtp(e.target.value)}
               required
               disabled={loading}
-              className="w-full px-4 py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
             />
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center cursor-pointer"
+              className="w-full py-2 sm:py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center cursor-pointer text-sm sm:text-base font-medium"
             >
               {loading ? "Verifying OTP..." : "Verify & Signup"}
             </button>
@@ -206,15 +206,15 @@ const Signup = () => {
               type="button"
               onClick={handleResendOtp}
               disabled={cooldown > 0}
-              className="w-full py-2 bg-gray-200 text-[#395EAA] rounded-xl hover:bg-gray-300 transition-colors flex items-center justify-center cursor-pointer"
+              className="w-full py-2 bg-gray-200 text-[#395EAA] rounded-xl hover:bg-gray-300 transition-colors flex items-center justify-center cursor-pointer text-xs sm:text-sm font-medium"
             >
               {cooldown > 0 ? `Resend OTP in ${cooldown}s` : "Resend OTP"}
             </button>
           </form>
         )}
 
-        <div className="mt-6 text-center">
-          <p className="text-gray-600">
+        <div className="mt-4 sm:mt-6 text-center">
+          <p className="text-gray-600 text-xs sm:text-sm">
             Already have an account?{" "}
             <button
               onClick={() => navigate("/login")}
