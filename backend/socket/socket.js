@@ -7,7 +7,7 @@ export const initSocket = (httpServer) => {
     cors: {
       origin: [
         "http://localhost:5173",
-        "https://hack-mate-ten.vercel.app",
+        "https://hackmate-official.vercel.app",
       ],
       credentials: true,
     },
@@ -20,44 +20,62 @@ export const initSocket = (httpServer) => {
       if (!token) throw new Error("Token missing");
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      socket.userId = decoded.id; // ✅ SINGLE SOURCE OF TRUTH
+
+      // ✅ Single source of truth
+      socket.userId = decoded.id;
+
       next();
     } catch (err) {
       if (process.env.NODE_ENV !== "production") {
-        console.error("Socket auth error");
+        console.error("Socket auth error:", err.message);
       }
       next(new Error("Unauthorized"));
     }
   });
 
   io.on("connection", (socket) => {
-    // Socket connected
+    // 🔹 SECURE Join Chat Room
+    socket.on("join-chat", async (chatId) => {
+      try {
+        if (!chatId) return;
 
-    // 🔹 Join specific chat room
-    socket.on("join-chat", (chatId) => {
-      if (!chatId) return;
-      socket.join(chatId);
+        // ✅ Ensure user is actually part of the chat
+        const chat = await ChatModel.findOne({
+          _id: chatId,
+          participants: socket.userId,
+        }).select("_id");
+
+        if (!chat) {
+          socket.emit("unauthorized-chat");
+          return;
+        }
+
+        socket.join(chatId);
+      } catch (err) {
+        if (process.env.NODE_ENV !== "production") {
+          console.error("Join chat error:", err.message);
+        }
+        socket.emit("unauthorized-chat");
+      }
     });
 
-    // 🔹 Send message
+    // 🔹 Send Message (Hardened)
     socket.on("send-message", async ({ chatId, text }) => {
       try {
         if (!chatId || !text?.trim()) return;
 
-        const chat = await ChatModel.findById(chatId);
+        // ✅ Secure fetch (ensures membership)
+        const chat = await ChatModel.findOne({
+          _id: chatId,
+          participants: socket.userId,
+        });
+
         if (!chat || chat.isLocked) {
           socket.emit("chat-locked");
           return;
         }
 
-        // 🔒 Ensure sender is part of chat
-        const isParticipant = chat.participants
-          .map((id) => id.toString())
-          .includes(socket.userId);
-
-        if (!isParticipant) return;
-
-        // 🚫 Message limit check
+        // 🚫 Message limit enforcement
         if (chat.messages.length >= chat.messageLimit) {
           chat.isLocked = true;
           await chat.save();
@@ -65,7 +83,7 @@ export const initSocket = (httpServer) => {
           return;
         }
 
-        // ✅ Save message in DB (sender as ObjectId)
+        // ✅ Create message
         const message = {
           sender: socket.userId,
           text: text.trim(),
@@ -74,12 +92,13 @@ export const initSocket = (httpServer) => {
         chat.messages.push(message);
         await chat.save();
 
-        // 📡 Broadcast message (CONSISTENT FORMAT)
+        // 📡 Broadcast message in consistent format
         io.to(chatId).emit("new-message", {
-          sender: { _id: socket.userId }, // 🔥 ALWAYS OBJECT
+          sender: { _id: socket.userId },
           text: message.text,
           createdAt: new Date(),
         });
+
       } catch (err) {
         if (process.env.NODE_ENV !== "production") {
           console.error("Socket message error:", err);
@@ -88,7 +107,7 @@ export const initSocket = (httpServer) => {
     });
 
     socket.on("disconnect", () => {
-      // Socket disconnected
+      // Connection closed
     });
   });
 };

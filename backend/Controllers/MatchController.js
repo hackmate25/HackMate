@@ -28,10 +28,16 @@ const swipeUser = async (req, res) => {
       });
     }
 
-    if (
-      user.matches.includes(selectedUserId) ||
-      user.selectedUsers.includes(selectedUserId)
-    ) {
+    // 🔥 FIX: Safe ObjectId comparison
+    const alreadyMatched = user.matches.some(
+      (id) => id.toString() === selectedUserId
+    );
+
+    const alreadySelected = user.selectedUsers.some(
+      (id) => id.toString() === selectedUserId
+    );
+
+    if (alreadyMatched || alreadySelected) {
       return res.status(400).json({
         success: false,
         message: "User already selected or matched",
@@ -88,29 +94,45 @@ const acceptRequest = async (req, res) => {
       });
     }
 
-    if (!user.pendingRequests.includes(requesterId)) {
+    // 🔥 FIX: Safe pending check
+    const hasPending = user.pendingRequests.some(
+      (id) => id.toString() === requesterId
+    );
+
+    if (!hasPending) {
       return res.status(400).json({
         success: false,
         message: "No pending request",
       });
     }
 
-    // cleanup
+    // Cleanup
     user.pendingRequests = user.pendingRequests.filter(
       (id) => id.toString() !== requesterId
     );
+
     requester.selectedUsers = requester.selectedUsers.filter(
       (id) => id.toString() !== userId
     );
 
-    if (!user.matches.includes(requesterId)) {
+    // 🔥 Safe match insert
+    const alreadyMatchedUser = user.matches.some(
+      (id) => id.toString() === requesterId
+    );
+
+    if (!alreadyMatchedUser) {
       user.matches.push(requesterId);
     }
-    if (!requester.matches.includes(userId)) {
+
+    const alreadyMatchedRequester = requester.matches.some(
+      (id) => id.toString() === userId
+    );
+
+    if (!alreadyMatchedRequester) {
       requester.matches.push(userId);
     }
 
-    // create chat if not exists
+    // Create chat if not exists
     const existingChat = await ChatModel.findOne({
       participants: { $all: [userId, requesterId] },
     });
