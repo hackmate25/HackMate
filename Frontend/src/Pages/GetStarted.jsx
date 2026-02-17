@@ -21,48 +21,48 @@ const GetStarted = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#D7EEFF] to-[#B0D4FF] flex items-center justify-center ">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-[#D7EEFF] to-[#B0D4FF] flex items-center justify-center overflow-hidden">
       {/* Help Icon */}
       <motion.button
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-6 left-6 text-slate-600 hover:text-slate-800 transition-colors"
+        className="absolute top-4 sm:top-6 left-4 sm:left-6 text-slate-600 hover:text-slate-800 transition-colors z-10"
       >
-        <HelpCircle size={28} />
+        <HelpCircle size={24} className="sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
       </motion.button>
 
       <motion.div
-        className="max-w-6xl w-full p-8 mr-20 h-full relative"
+        className="max-w-6xl w-full p-4 sm:p-6 lg:p-8 mx-auto h-full relative"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
           {/* Left Sidebar */}
           <motion.div
-            className="bg-[#445A80] rounded-lg flex items-center justify-center p-12 w-72 flex-shrink-0 cursor-pointer"
+            className="bg-[#445A80] rounded-lg flex items-center justify-center p-6 sm:p-8 lg:p-12 w-full lg:w-72 flex-shrink-0 cursor-pointer min-h-40 lg:min-h-auto"
             variants={itemVariants}
             whileHover={{ scale: 1.08, transition: { duration: 0.1 } }}
              initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.5, type: "spring", stiffness: 90 }}
           >
-            <h2 className="text-white text-3xl font-bold tracking-widest transform -rotate-90 whitespace-nowrap">
+            <h2 className="text-white text-lg sm:text-2xl lg:text-3xl font-bold tracking-widest transform lg:-rotate-90 text-center lg:whitespace-nowrap">
               WHAT IS HACKMATE?
             </h2>
           </motion.div>
 
           {/* Right Content */}
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col w-full">
             <motion.h1
-              className="text-slate-600 text-4xl font-semibold text-center mb-12 tracking-wide"
+              className="text-slate-600 text-2xl sm:text-3xl lg:text-4xl font-semibold text-center mb-6 sm:mb-8 lg:mb-12 tracking-wide"
               variants={itemVariants}
             >
               GET STARTED
             </motion.h1>
 
-            <motion.div className="space-y-4 flex-1">
+            <motion.div className="space-y-2 sm:space-y-3 lg:space-y-4 flex-1">
               {/* Question 1 */}
               <motion.div
                 className="bg-[#86B3FF] rounded-lg p-8 cursor-pointer"

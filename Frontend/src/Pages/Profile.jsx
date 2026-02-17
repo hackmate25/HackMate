@@ -111,20 +111,20 @@ const Profile = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <Navbar />
 
-      <div className="lg:ml-72 max-w-6xl mx-auto py-10 px-4 md:px-6">
-        <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl p-6 md:p-10 flex flex-col md:flex-row gap-8 md:gap-12 border border-white/20">
+      <div className="lg:ml-72 max-w-6xl mx-auto py-6 sm:py-10 px-2 sm:px-4 md:px-6">
+        <div className="bg-white/70 backdrop-blur-xl rounded-2xl lg:rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-10 flex flex-col lg:flex-row gap-4 sm:gap-8 lg:gap-12 border border-white/20">
 
           {/* ---------------- LEFT ---------------- */}
-          <div className="w-full md:w-1/3 flex flex-col items-center">
+          <div className="w-full lg:w-1/3 flex flex-col items-center">
             <div className="relative">
               <img
                 src={profile.profileImage || "https://i.pravatar.cc/300"}
-                className="w-44 h-44 rounded-full object-cover border-4 border-white shadow-lg"
+                className="w-32 sm:w-40 lg:w-44 h-32 sm:h-40 lg:h-44 rounded-full object-cover border-4 border-white shadow-lg"
               />
               <div className="absolute inset-0 rounded-full ring-4 ring-blue-400/30" />
             </div>
 
-            <label className="text-blue-600 cursor-pointer text-sm mt-4 hover:text-blue-700 font-medium transition">
+            <label className="text-blue-600 cursor-pointer text-xs sm:text-sm mt-3 sm:mt-4 hover:text-blue-700 font-medium transition">
               {uploading ? "Uploading..." : "Change photo"}
               <input
                 type="file"
@@ -135,13 +135,13 @@ const Profile = () => {
               />
             </label>
 
-            <h2 className="text-3xl font-extrabold mt-6 leading-tight text-gray-800">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold mt-4 sm:mt-6 leading-tight text-gray-800 text-center">
               {profile.name}
             </h2>
 
-            <p className="text-gray-500 text-sm mt-1">{profile.email}</p>
+            <p className="text-gray-500 text-xs sm:text-sm mt-1 text-center">{profile.email}</p>
 
-            <div className="mt-8 w-full text-sm text-gray-700 space-y-3 bg-white/50 rounded-2xl p-5 backdrop-blur-sm">
+            <div className="mt-6 sm:mt-8 lg:mt-8 w-full text-xs sm:text-sm text-gray-700 space-y-2 sm:space-y-3 bg-white/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 backdrop-blur-sm">
               <InfoRow label="Age" value={profile.age} />
               <InfoRow label="Phone" value={profile.phoneNumber} />
               <InfoRow label="Year" value={profile.year} />
@@ -175,7 +175,7 @@ const Profile = () => {
                 </button>
               </>
             ) : (
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <Textarea label="About me" value={form.bio}
                   onChange={(v) => setForm((f) => ({ ...f, bio: v }))} />
 
@@ -212,13 +212,13 @@ const Profile = () => {
                 <Input label="Instagram" value={form.instagram}
                   onChange={(v) => setForm((f) => ({ ...f, instagram: v }))} />
 
-                <div className="col-span-2 flex gap-4 mt-4">
+                <div className="col-span-1 md:col-span-2 flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
                   <button onClick={handleSave}
-                    className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105">
+                    className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105 cursor-pointer">
                     Save Changes
                   </button>
                   <button onClick={() => setEdit(false)}
-                    className="bg-gray-200 hover:bg-gray-300 px-8 py-3 rounded-xl font-semibold transition-all duration-200 cursor-pointer">
+                    className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-200 cursor-pointer">
                     Cancel
                   </button>
                 </div>

@@ -160,10 +160,10 @@ const Discover = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100 overflow-hidden">
       <Navbar />
-      <div className="lg:ml-72 pt-14 lg:pt-0">
+      <div className="lg:ml-72 pt-14 lg:pt-0 px-2 sm:px-4 md:px-6 lg:px-0">
 
         {/* CARD AREA */}
-        <div className="relative flex justify-center items-center py-20">
+        <div className="relative flex justify-center items-center py-10 sm:py-20 min-h-screen flex-col sm:flex-row">
           {/* NEXT CARD PREVIEWS (LEFT + RIGHT) */}
           {nextUser && (
             <>
@@ -176,7 +176,7 @@ const Discover = () => {
                   scale: direction === "left" ? 0.99 : 0.965,
                 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="hidden lg:block absolute left-[120px] -translate-x-10 w-[420px] h-[620px] bg-white/60 backdrop-blur-3xl rounded-3xl shadow-xl border border-white/20 overflow-hidden z-0 pointer-events-none"
+                className="hidden xl:block absolute left-[120px] -translate-x-10 w-[320px] md:w-[420px] h-[480px] md:h-[620px] bg-white/60 backdrop-blur-3xl rounded-3xl shadow-xl border border-white/20 overflow-hidden z-0 pointer-events-none"
               >
                 <div className="relative h-[60%] overflow-hidden">
                   <img
@@ -200,7 +200,7 @@ const Discover = () => {
                   scale: direction === "right" ? 0.99 : 0.965,
                 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="hidden lg:block absolute right-[120px] translate-x-10 w-[420px] h-[620px] bg-white/60 backdrop-blur-3xl rounded-3xl shadow-xl border border-white/20 overflow-hidden z-0 pointer-events-none"
+                className="hidden xl:block absolute right-[120px] translate-x-10 w-[320px] md:w-[420px] h-[480px] md:h-[620px] bg-white/60 backdrop-blur-3xl rounded-3xl shadow-xl border border-white/20 overflow-hidden z-0 pointer-events-none"
               >
                 <div className="relative h-[60%] overflow-hidden">
                   <img
