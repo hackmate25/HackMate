@@ -84,7 +84,7 @@ export default function OnboardingStep3({ onBack }) {
         }
       }
 
-      navigate("/confirmDetails");
+      navigate("/discover`");
     } catch (err) {
       console.error("❌ Step 3 error:", err);
       setError(err.message || "Server error");

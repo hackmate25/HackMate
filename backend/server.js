@@ -45,7 +45,9 @@ app.use(
   })
 );
 
-app.use(bodyParser.json());
+// Increase body size limits for image uploads
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Routes
 app.use("/auth", AuthRouter);
