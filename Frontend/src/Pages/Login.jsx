@@ -43,7 +43,7 @@ const Login = () => {
         console.log('Login successful');
       }
 
-      navigate('/welcome');
+      navigate('/discover');
     } catch (err) {
       if (import.meta.env.MODE === 'development') {
         console.error('Login error:', err);
