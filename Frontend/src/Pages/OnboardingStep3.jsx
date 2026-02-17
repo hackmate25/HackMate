@@ -84,7 +84,7 @@ export default function OnboardingStep3({ onBack }) {
         }
       }
 
-      navigate("/discover`");
+      navigate("/discover");
     } catch (err) {
       if (import.meta.env.MODE === 'development') {
         console.error("Step 3 error:", err);

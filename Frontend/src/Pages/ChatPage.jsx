@@ -158,7 +158,7 @@ const ChatPage = () => {
         <div className="text-center">
           <p className="text-gray-500 text-lg">Chat not found</p>
           <button
-            onClick={() => navigate("/chat-list")}
+            onClick={() => navigate("/chat")}
             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600 transition-all"
           >
             Back to Chats
@@ -189,7 +189,7 @@ const ChatPage = () => {
           >
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <button
-                onClick={() => navigate("/chat-list")}
+                onClick={() => navigate("/chat")}
                 className="lg:hidden p-1 sm:p-2 rounded-lg hover:bg-blue-500/50 transition-all cursor-pointer flex-shrink-0"
               >
                 <ArrowLeft size={20} />

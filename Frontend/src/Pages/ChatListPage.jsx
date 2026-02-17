@@ -10,7 +10,14 @@ const ChatListPage = () => {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const navigate = useNavigate();
 
-  const myUser = JSON.parse(localStorage.getItem("user"));
+  let myUser = null;
+  try {
+    myUser = JSON.parse(localStorage.getItem("user") || "null");
+  } catch {
+    myUser = null;
+  }
+
+  const myUserId = myUser?.id?.toString?.() || null;
 
   useEffect(() => {
     let mounted = true;
@@ -22,11 +29,10 @@ const ChatListPage = () => {
         const data = await res.json();
 
         if (mounted && data.success) {
-          setChats(data.chats);
+          setChats(data.chats || []);
         }
       } catch (err) {
-        // 🔐 Token expiry handled centrally in apiFetch
-        if (import.meta.env.MODE === 'development') {
+        if (import.meta.env.MODE === "development") {
           console.error("Chat list fetch error:", err.message);
         }
       } finally {
@@ -49,11 +55,11 @@ const ChatListPage = () => {
 
       <div className="lg:ml-72 pt-14 lg:pt-0 max-w-7xl mx-auto py-4 sm:py-10 px-2 sm:px-4 lg:px-6">
         <div className="bg-white/70 backdrop-blur-xl rounded-2xl lg:rounded-3xl overflow-hidden flex flex-col lg:flex-row h-auto lg:h-[75vh] shadow-2xl border border-white/20">
-          
-          {/* LEFT SIDEBAR */}
+
           <div className="w-full lg:w-[30%] bg-gradient-to-b from-blue-100 to-indigo-100 lg:border-r border-b lg:border-b-0 border-white/50 overflow-y-auto max-h-96 lg:max-h-none">
             <div className="p-3 sm:p-5 font-bold text-lg sm:text-xl text-gray-800 border-b border-white/50 flex items-center gap-2 sticky top-0 bg-blue-100/80 backdrop-blur-sm">
-              <span className="text-xl sm:text-2xl">💬</span> <span className="hidden sm:inline">Chats</span>
+              <span className="text-xl sm:text-2xl">💬</span>
+              <span className="hidden sm:inline">Chats</span>
             </div>
 
             {loading ? (
@@ -68,7 +74,9 @@ const ChatListPage = () => {
               >
                 <p className="text-3xl mb-3">📭</p>
                 <p className="font-medium">No chats yet</p>
-                <p className="text-sm text-gray-400 mt-2">Start matching to begin conversations!</p>
+                <p className="text-sm text-gray-400 mt-2">
+                  Start matching to begin conversations!
+                </p>
               </motion.div>
             ) : (
               <motion.div
@@ -77,9 +85,13 @@ const ChatListPage = () => {
                 transition={{ staggerChildren: 0.05 }}
               >
                 {chats.map((chat, idx) => {
-                  const otherUser = chat.participants.find(
-                    (p) => p._id !== myUser?.id
-                  );
+                  const otherUser = chat.participants.find((p) => {
+                    const participantId =
+                      typeof p._id === "string"
+                        ? p._id
+                        : p._id?.toString?.();
+                    return participantId !== myUserId;
+                  });
 
                   return (
                     <motion.div
@@ -112,7 +124,7 @@ const ChatListPage = () => {
                           Tap to open chat
                         </p>
                       </div>
-                      
+
                       {selectedChatId === chat._id && (
                         <motion.div
                           initial={{ scale: 0 }}
@@ -129,7 +141,6 @@ const ChatListPage = () => {
             )}
           </div>
 
-          {/* RIGHT EMPTY PANEL - Hidden on Mobile */}
           <div className="hidden lg:flex flex-1 bg-gradient-to-b from-blue-50 to-white flex-col items-center justify-center py-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -137,8 +148,12 @@ const ChatListPage = () => {
               className="text-center px-4"
             >
               <p className="text-4xl sm:text-5xl mb-3 sm:mb-4">👋</p>
-              <p className="text-gray-500 text-base sm:text-lg font-medium">Select a chat to start messaging</p>
-              <p className="text-gray-400 text-sm mt-2">Your conversations will appear here</p>
+              <p className="text-gray-500 text-base sm:text-lg font-medium">
+                Select a chat to start messaging
+              </p>
+              <p className="text-gray-400 text-sm mt-2">
+                Your conversations will appear here
+              </p>
             </motion.div>
           </div>
         </div>
