@@ -83,7 +83,9 @@ export default function OnboardingStep2({ onNext, onBack }) {
       onNext?.(formData);
       navigate("/skills");
     } catch (err) {
-      console.error("❌ Error updating profile:", err);
+      if (import.meta.env.MODE === 'development') {
+        console.error("Error updating profile:", err);
+      }
       setError(err.message || "Server error. Please try again later.");
     } finally {
       setLoading(false);
@@ -153,7 +155,7 @@ export default function OnboardingStep2({ onNext, onBack }) {
                 onBack?.();
                 navigate("/details");
               }}
-              className="bg-gray-300 px-6 py-2 rounded-xl flex items-center gap-2"
+              className="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded-xl flex items-center gap-2 cursor-pointer transition"
             >
               <ArrowLeft size={18} /> Back
             </button>
@@ -163,7 +165,7 @@ export default function OnboardingStep2({ onNext, onBack }) {
               disabled={loading}
               className={`${
                 loading ? "bg-green-300" : "bg-green-500 hover:bg-green-600"
-              } text-white px-6 py-2 rounded-xl flex items-center gap-2`}
+              } text-white px-6 py-2 rounded-xl flex items-center gap-2 cursor-pointer transition`}
             >
               {loading ? "Saving..." : <>Next <ArrowRight size={18} /></>}
             </button>

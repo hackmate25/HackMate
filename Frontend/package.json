@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:prod": "vite build --mode production",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "type-check": "echo 'Type checking setup required'"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",

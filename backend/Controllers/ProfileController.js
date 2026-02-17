@@ -1,6 +1,7 @@
 import UserModel from "../Modules/User.js";
 import cloudinary from "../utils/cloudinary.js";
 import streamifier from "streamifier";
+import logger from "../utils/logger.js";
 
 // Get logged-in user profile
 const getProfile = async (req, res) => {
@@ -16,7 +17,7 @@ const getProfile = async (req, res) => {
 
     res.json({ success: true, profile: user });
   } catch (err) {
-    console.error("GET PROFILE ERROR:", err);
+    logger.error("GET PROFILE ERROR:", err);
     res.status(500).json({ success: false, message: "Error fetching profile" });
   }
 };
@@ -74,7 +75,7 @@ const updateProfile = async (req, res) => {
       profile: user,
     });
   } catch (err) {
-    console.error("❌ UPDATE PROFILE ERROR:", err);
+    logger.error("UPDATE PROFILE ERROR:", err);
 
     if (err.code === 11000) {
       return res.status(400).json({
@@ -146,7 +147,7 @@ const uploadProfileImage = async (req, res) => {
       profileImage: result.secure_url,
     });
   } catch (err) {
-    console.error("❌ IMAGE UPLOAD ERROR:", err);
+    logger.error("IMAGE UPLOAD ERROR:", err);
     return res.status(500).json({
       success: false,
       message: "Image upload failed",

@@ -86,7 +86,9 @@ export default function OnboardingStep3({ onBack }) {
 
       navigate("/discover`");
     } catch (err) {
-      console.error("❌ Step 3 error:", err);
+      if (import.meta.env.MODE === 'development') {
+        console.error("Step 3 error:", err);
+      }
       setError(err.message || "Server error");
     } finally {
       setLoading(false);
@@ -236,7 +238,7 @@ export default function OnboardingStep3({ onBack }) {
                 onBack?.(formData);
                 navigate("/your-info");
               }}
-              className="bg-gray-300 px-6 py-2 rounded-xl flex gap-2"
+              className="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded-xl flex gap-2 cursor-pointer transition"
             >
               <ArrowLeft size={18} /> Back
             </button>
@@ -246,7 +248,7 @@ export default function OnboardingStep3({ onBack }) {
               disabled={loading}
               className={`${
                 loading ? "bg-green-300" : "bg-green-500 hover:bg-green-600"
-              } text-white px-6 py-2 rounded-xl flex gap-2`}
+              } text-white px-6 py-2 rounded-xl flex gap-2 cursor-pointer transition`}
             >
               {loading ? "Saving..." : <>Next <ArrowRight size={18} /></>}
             </button>

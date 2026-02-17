@@ -84,7 +84,11 @@ const Discover = () => {
           setPage(0);
         }
       })
-      .catch((err) => console.error("Discover fetch error:", err.message));
+      .catch((err) => {
+        if (import.meta.env.MODE === 'development') {
+          console.error("Discover fetch error:", err.message);
+        }
+      });
 
     refreshCounts();
   }, [page]);
@@ -109,7 +113,9 @@ const Discover = () => {
         pending: p.pendingRequests?.length || 0,
       });
     } catch (err) {
-      console.error("Count refresh error:", err.message);
+      if (import.meta.env.MODE === 'development') {
+        console.error("Count refresh error:", err.message);
+      }
     }
   };
 
@@ -333,7 +339,7 @@ const BottomPill = ({ label, count, onClick }) => (
   <motion.div
     onClick={onClick}
     whileHover={{ y: -4, scale: 1.05 }}
-    className="relative px-10 py-3 bg-white rounded-full shadow cursor-pointer"
+    className="relative px-10 py-3 bg-white rounded-full shadow cursor-pointer hover:shadow-lg transition-shadow"
   >
     {label}
     <span className="absolute -top-2 -right-2 w-7 h-7 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm">

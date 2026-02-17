@@ -38,11 +38,11 @@ export default function OnboardingStep1({ onNext, onBack }) {
           </p>
 
           <div className="flex flex-col gap-4">
-            <button className="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-all duration-200">
+            <button className="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-all duration-200 cursor-pointer">
               Upload Using Resume
             </button>
             <button
-              className="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2"
+              className="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
               onClick={() => {
                 setProgress(40);
                 onNext?.();

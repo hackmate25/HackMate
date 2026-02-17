@@ -23,19 +23,20 @@ export const initSocket = (httpServer) => {
       socket.userId = decoded.id; // ✅ SINGLE SOURCE OF TRUTH
       next();
     } catch (err) {
-      console.error("❌ Socket auth failed");
+      if (process.env.NODE_ENV !== "production") {
+        console.error("Socket auth error");
+      }
       next(new Error("Unauthorized"));
     }
   });
 
   io.on("connection", (socket) => {
-    console.log("🟢 Socket connected:", socket.userId);
+    // Socket connected
 
     // 🔹 Join specific chat room
     socket.on("join-chat", (chatId) => {
       if (!chatId) return;
       socket.join(chatId);
-      console.log(`👥 User ${socket.userId} joined chat ${chatId}`);
     });
 
     // 🔹 Send message
@@ -80,12 +81,14 @@ export const initSocket = (httpServer) => {
           createdAt: new Date(),
         });
       } catch (err) {
-        console.error("❌ Socket message error:", err);
+        if (process.env.NODE_ENV !== "production") {
+          console.error("Socket message error:", err);
+        }
       }
     });
 
     socket.on("disconnect", () => {
-      console.log("🔴 Socket disconnected:", socket.userId);
+      // Socket disconnected
     });
   });
 };

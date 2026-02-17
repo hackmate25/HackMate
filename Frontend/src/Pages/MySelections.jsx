@@ -17,7 +17,9 @@ const MySelections = () => {
       const data = await res.json();
       setUsers(data.selectedUsers || []);
     } catch (err) {
-      console.error("Fetch selections error:", err.message);
+      if (import.meta.env.MODE === 'development') {
+        console.error("Fetch selections error:", err.message);
+      }
     }
   };
 
@@ -29,11 +31,11 @@ const MySelections = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <Navbar />
 
-      <div className="lg:ml-72 pt-14 lg:pt-0 max-w-7xl mx-auto py-10 px-4 sm:px-6">
+      <div className="lg:ml-72 pt-14 lg:pt-9 max-w-7xl mx-auto py-10 px-4 sm:px-6">
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => navigate("/discover")}
-            className="w-10 h-10 md:w-12 md:h-12 bg-white/70 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 border border-white/20"
+            className="w-10 h-10 md:w-12 md:h-12 bg-white/70 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 border border-white/20 cursor-pointer"
           >
             ←
           </button>

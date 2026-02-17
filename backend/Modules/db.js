@@ -5,8 +5,10 @@ const mongo_url = process.env.MONGO_CONN;
 
 mongoose.connect(mongo_url)
 .then(() => {
-    console.log("MongoDB Connected");
+    // Database connected
 }).catch((err) => {
-    console.error('MongoDB Error: ', err);
-    
+    if (process.env.NODE_ENV !== "production") {
+        console.error('MongoDB Error: ', err);
+    }
+    process.exit(1);
 })

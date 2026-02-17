@@ -30,14 +30,14 @@ const UserCard = ({ user, onClick, showActions, onAccept, onReject, overlay, }) 
         >
           <button
             onClick={() => onAccept?.(user._id)}
-            className="flex-1 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500  hover:from-green-600 hover:to-emerald-600  text-white font-semibold text-sm shadow-md hover:scale-105 transition-all duration-200"
+            className="flex-1 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500  hover:from-green-600 hover:to-emerald-600  text-white font-semibold text-sm shadow-md hover:scale-105 transition-all duration-200 cursor-pointer"
           >
             ✓ Accept
           </button>
 
           <button
             onClick={() => onReject?.(user._id)}
-            className="flex-1 py-2 rounded-lg bg-gradient-to-r from-red-500 to-rose-500  hover:from-red-600 hover:to-rose-600  text-white font-semibold text-sm shadow-md hover:scale-105 transition-all duration-200"
+            className="flex-1 py-2 rounded-lg bg-gradient-to-r from-red-500 to-rose-500  hover:from-red-600 hover:to-rose-600  text-white font-semibold text-sm shadow-md hover:scale-105 transition-all duration-200 cursor-pointer"
           >
             ✕ Reject
           </button>

@@ -1,4 +1,5 @@
 import UserModel from "../Modules/User.js";
+import logger from "../utils/logger.js";
 
 const PAGE_SIZE = 20;
 
@@ -75,7 +76,7 @@ const discoverUsers = async (req, res) => {
       page,
     });
   } catch (error) {
-    console.error("DISCOVER USERS ERROR:", error);
+    logger.error("DISCOVER USERS ERROR:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to discover users",
