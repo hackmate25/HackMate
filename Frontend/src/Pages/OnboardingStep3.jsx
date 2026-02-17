@@ -25,7 +25,7 @@ export default function OnboardingStep3({ onBack }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  /* ---------------- IMAGE SELECT ---------------- */
+  /* ---------------- IMAGE SELECT -------------- */
   const handleProfileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
