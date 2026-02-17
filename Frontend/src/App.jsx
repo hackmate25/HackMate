@@ -5,7 +5,6 @@ import LandingScreen from "./Pages/LandingScreen";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import GetStarted from "./Pages/GetStarted";
-import WelcomeScreen from "./Pages/WelcomeScreen";
 
 import OnboardingStep1 from "./Pages/OnboardingStep1";
 import OnboardingStep2 from "./Pages/OnboardingStep2";
@@ -31,7 +30,6 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/get-started" element={<GetStarted />} />
-        <Route path="/welcome" element={<WelcomeScreen />} />
 
         {/* Onboarding */}
         <Route path="/details" element={<OnboardingStep1 />} />
