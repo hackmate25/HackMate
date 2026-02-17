@@ -15,7 +15,19 @@ const MessageSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  deliveredTo: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ],
+  readBy: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }
+  ]
 });
 
 const ChatSchema = new Schema(

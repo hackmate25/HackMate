@@ -13,15 +13,13 @@ export const initSocket = (httpServer) => {
     },
   });
 
-  // 🔐 SOCKET AUTH (JWT)
+  /*SOCKET AUTH MIDDLEWARE*/
   io.use((socket, next) => {
     try {
       const token = socket.handshake.auth?.token;
       if (!token) throw new Error("Token missing");
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // ✅ Single source of truth
       socket.userId = decoded.id;
 
       next();
@@ -33,17 +31,18 @@ export const initSocket = (httpServer) => {
     }
   });
 
+  /*CONNECTION HANDLER*/
   io.on("connection", (socket) => {
-    // 🔹 SECURE Join Chat Room
+
+    /* JOIN CHAT (Secure + Delivered)*/
     socket.on("join-chat", async (chatId) => {
       try {
         if (!chatId) return;
 
-        // ✅ Ensure user is actually part of the chat
         const chat = await ChatModel.findOne({
           _id: chatId,
           participants: socket.userId,
-        }).select("_id");
+        });
 
         if (!chat) {
           socket.emit("unauthorized-chat");
@@ -51,6 +50,21 @@ export const initSocket = (httpServer) => {
         }
 
         socket.join(chatId);
+
+        // Mark all messages as delivered for this user
+        await ChatModel.updateOne(
+          { _id: chatId },
+          {
+            $addToSet: {
+              "messages.$[].deliveredTo": socket.userId,
+            },
+          }
+        );
+
+        io.to(chatId).emit("messages-delivered", {
+          userId: socket.userId,
+        });
+
       } catch (err) {
         if (process.env.NODE_ENV !== "production") {
           console.error("Join chat error:", err.message);
@@ -59,12 +73,12 @@ export const initSocket = (httpServer) => {
       }
     });
 
-    // 🔹 Send Message (Hardened)
+
+    /* SEND MESSAGE */
     socket.on("send-message", async ({ chatId, text }) => {
       try {
         if (!chatId || !text?.trim()) return;
 
-        // ✅ Secure fetch (ensures membership)
         const chat = await ChatModel.findOne({
           _id: chatId,
           participants: socket.userId,
@@ -75,7 +89,7 @@ export const initSocket = (httpServer) => {
           return;
         }
 
-        // 🚫 Message limit enforcement
+        // Enforce message limit
         if (chat.messages.length >= chat.messageLimit) {
           chat.isLocked = true;
           await chat.save();
@@ -83,20 +97,23 @@ export const initSocket = (httpServer) => {
           return;
         }
 
-        // ✅ Create message
         const message = {
           sender: socket.userId,
           text: text.trim(),
+          deliveredTo: [socket.userId],
+          readBy: [socket.userId],
         };
 
         chat.messages.push(message);
         await chat.save();
 
-        // 📡 Broadcast message in consistent format
+        // Emit full structured message
         io.to(chatId).emit("new-message", {
           sender: { _id: socket.userId },
           text: message.text,
-          createdAt: new Date(),
+          createdAt: message.createdAt,
+          deliveredTo: message.deliveredTo,
+          readBy: message.readBy,
         });
 
       } catch (err) {
@@ -106,8 +123,44 @@ export const initSocket = (httpServer) => {
       }
     });
 
-    socket.on("disconnect", () => {
-      // Connection closed
+
+    /*MARK AS READ*/
+    socket.on("mark-read", async (chatId) => {
+      try {
+        if (!chatId) return;
+
+        const chat = await ChatModel.findOne({
+          _id: chatId,
+          participants: socket.userId,
+        });
+
+        if (!chat) return;
+
+        await ChatModel.updateOne(
+          { _id: chatId },
+          {
+            $addToSet: {
+              "messages.$[].readBy": socket.userId,
+            },
+          }
+        );
+
+        io.to(chatId).emit("messages-read", {
+          userId: socket.userId,
+        });
+
+      } catch (err) {
+        if (process.env.NODE_ENV !== "production") {
+          console.error("Mark read error:", err);
+        }
+      }
     });
+
+
+    /*DISCONNECT*/
+    socket.on("disconnect", () => {
+      // Optional: add online/offline tracking later
+    });
+
   });
 };
