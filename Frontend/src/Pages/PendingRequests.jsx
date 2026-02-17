@@ -31,7 +31,7 @@ const PendingRequests = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <Navbar />
 
-      <div className="lg:ml-72 pt-14 lg:pt-0 max-w-7xl mx-auto py-10 px-4 sm:px-6">
+      <div className="lg:ml-72 pt-14 lg:pt-9 max-w-7xl mx-auto py-10 px-4 sm:px-6">
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => navigate("/discover")}
