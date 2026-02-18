@@ -9,49 +9,34 @@ const MyMatches = () => {
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
-  const [chats, setChats] = useState([]);
   const [active, setActive] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchMatches = async () => {
     try {
+      setLoading(true);
       const res = await apiFetch("/match/matches");
       const data = await res.json();
-      setUsers(data.matches || []);
+
+      if (data.success) {
+        setUsers(data.matches || []);
+      }
     } catch (err) {
-      if (import.meta.env.MODE === 'development') {
+      if (import.meta.env.MODE === "development") {
         console.error("Fetch matches error:", err.message);
       }
-    }
-  };
-
-  const fetchChats = async () => {
-    try {
-      const res = await apiFetch("/chat");
-      const data = await res.json();
-      setChats(data.chats || []);
-    } catch (err) {
-      if (import.meta.env.MODE === 'development') {
-        console.error("Fetch chats error:", err.message);
-      }
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchMatches();
-    fetchChats();
   }, []);
 
+  // ✅ Correct Navigation
   const openChatWithUser = (userId) => {
-    const chat = chats.find((c) =>
-      c.participants.some((p) => p._id === userId)
-    );
-
-    if (!chat) {
-      alert("Chat not found. Try again.");
-      return;
-    }
-
-    navigate(`/chat/${chat._id}`);
+    navigate(`/chat/${userId}`);
   };
 
   return (
@@ -59,6 +44,8 @@ const MyMatches = () => {
       <Navbar />
 
       <div className="lg:ml-72 pt-16 sm:pt-20 lg:pt-9 max-w-7xl mx-auto py-6 sm:py-10 px-2 sm:px-4 lg:px-6">
+        
+        {/* Header */}
         <div className="flex items-center gap-2 sm:gap-4 mb-6 sm:mb-8">
           <button
             onClick={() => navigate("/discover")}
@@ -72,7 +59,12 @@ const MyMatches = () => {
           </div>
         </div>
 
-        {users.length === 0 ? (
+        {/* Loading */}
+        {loading ? (
+          <div className="flex justify-center mt-20">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500"></div>
+          </div>
+        ) : users.length === 0 ? (
           <p className="text-center text-gray-500 mt-16 sm:mt-24 md:mt-32 text-sm sm:text-base">
             No matches yet
           </p>
@@ -89,14 +81,17 @@ const MyMatches = () => {
                         e.stopPropagation();
                         openChatWithUser(u._id);
                       }}
-                      className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-indigo-600  hover:from-blue-700 hover:to-indigo-700  text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg transition-all duration-200 cursor-pointer"
+                      className="absolute bottom-4 left-1/2 -translate-x-1/2 
+                      bg-gradient-to-r from-blue-500 to-indigo-600  
+                      hover:from-blue-700 hover:to-indigo-700  
+                      text-white px-5 py-2 rounded-full text-sm font-semibold 
+                      shadow-lg transition-all duration-200 cursor-pointer"
                     >
                       Chat
                     </button>
                   }
                 />
               </div>
-
             ))}
           </div>
         )}

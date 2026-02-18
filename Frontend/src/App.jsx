@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import LandingScreen from "./Pages/LandingScreen"; 
+import LandingScreen from "./Pages/LandingScreen";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import GetStarted from "./Pages/GetStarted";
@@ -45,6 +45,7 @@ const App = () => {
 
         {/* 🔥 CHAT SYSTEM */}
         <Route path="/chat" element={<ChatLayoutPage />} />
+        <Route path="/chat/:otherUserId" element={<ChatLayoutPage />} />
 
         {/* Fallback */}
         <Route path="*" element={<LandingScreen />} />
