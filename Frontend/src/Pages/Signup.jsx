@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import mainbg from "../assets/mainbg.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +16,7 @@ const Signup = () => {
   const [cooldown, setCooldown] = useState(0);
 
   const navigate = useNavigate();
+  const { login: authLogin } = useAuth();
   const Backend = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
   const isValidSrmEmail = (email) =>
@@ -87,8 +89,8 @@ const Signup = () => {
 
       if (res.ok && data.success) {
         toast.success("Signup successful!");
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        // Use AuthContext to manage login
+        authLogin(data.token, data.user);
         navigate("/details");
       } else {
         toast.error(data.message || "OTP verification failed.");

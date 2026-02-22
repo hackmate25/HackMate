@@ -103,11 +103,11 @@ const verifyOtp = async (req, res) => {
     // cleanup
     delete otpStore[email];
 
-    // generate JWT
+    // generate JWT with longer expiration for persistent sessions
     const token = jwt.sign(
       { email: newUser.email, id: newUser._id },
       process.env.JWT_SECRET,
-      { expiresIn: "2h" }
+      { expiresIn: "30d" } // 30 days for persistent login
     );
 
     return res.status(201).json({
@@ -147,14 +147,14 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { email: user.email, id: user._id },
       process.env.JWT_SECRET,
-      { expiresIn: "2h" }
+      { expiresIn: "30d" } // 30 days for persistent login
     );
 
     res.status(200).json({
       message: "Login successful",
       success: true,
       token,
-      user: { name: user.name, email: user.email },
+      user: { name: user.name, email: user.email, id: user._id },
     });
   } catch (error) {
     logger.error("Error in login:", error);
@@ -166,4 +166,44 @@ const login = async (req, res) => {
   }
 };
 
-export { signupInit, verifyOtp, login };
+// --- VERIFY TOKEN ---
+const verifyToken = async (req, res) => {
+  try {
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({
+        success: false,
+        message: 'No token provided'
+      });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    
+    // Find user to ensure they still exist
+    const user = await UserModel.findById(decoded.id).select('-password');
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
+    });
+  } catch (error) {
+    logger.error("Error verifying token:", error);
+    res.status(401).json({
+      success: false,
+      message: 'Invalid or expired token'
+    });
+  }
+};
+
+export { signupInit, verifyOtp, login, verifyToken };

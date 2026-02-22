@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import LandingScreen from "./Pages/LandingScreen"; 
 import Login from "./Pages/Login";
@@ -23,35 +25,36 @@ import ChatPage from "./Pages/ChatPage";
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        {/* Landing / Auth */}
-        <Route path="/" element={<LandingScreen />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/get-started" element={<GetStarted />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Landing / Auth */}
+          <Route path="/" element={<LandingScreen />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/get-started" element={<GetStarted />} />
 
-        {/* Onboarding */}
-        <Route path="/details" element={<OnboardingStep1 />} />
-        <Route path="/your-info" element={<OnboardingStep2 />} />
-        <Route path="/skills" element={<OnboardingStep3 />} />
+          {/* Onboarding - Protected */}
+          <Route path="/details" element={<ProtectedRoute><OnboardingStep1 /></ProtectedRoute>} />
+          <Route path="/your-info" element={<ProtectedRoute><OnboardingStep2 /></ProtectedRoute>} />
+          <Route path="/skills" element={<ProtectedRoute><OnboardingStep3 /></ProtectedRoute>} />
 
+          {/* Core App - Protected */}
+          <Route path="/discover" element={<ProtectedRoute><Discover /></ProtectedRoute>} />
+          <Route path="/pending" element={<ProtectedRoute><PendingRequests /></ProtectedRoute>} />
+          <Route path="/selections" element={<ProtectedRoute><MySelections /></ProtectedRoute>} />
+          <Route path="/matches" element={<ProtectedRoute><MyMatches /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
-        {/* Core App */}
-        <Route path="/discover" element={<Discover />} />
-        <Route path="/pending" element={<PendingRequests />} />
-        <Route path="/selections" element={<MySelections />} />
-        <Route path="/matches" element={<MyMatches />} />
-        <Route path="/profile" element={<Profile />} />
+          {/* 🔥 CHAT SYSTEM - Protected */}
+          <Route path="/chat" element={<ProtectedRoute><ChatListPage /></ProtectedRoute>} />
+          <Route path="/chat/:chatId" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
 
-        {/* 🔥 CHAT SYSTEM */}
-        <Route path="/chat" element={<ChatListPage />} />
-        <Route path="/chat/:chatId" element={<ChatPage />} />
-
-        {/* Fallback */}
-        <Route path="*" element={<LandingScreen />} />
-      </Routes>
-    </Router>
+          {/* Fallback */}
+          <Route path="*" element={<LandingScreen />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 };
 
