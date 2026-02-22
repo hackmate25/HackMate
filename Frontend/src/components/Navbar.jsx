@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 const API_URL = (
   import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
@@ -17,6 +18,7 @@ const API_URL = (
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useAuth();
   const token = localStorage.getItem("token");
 
   const [profileImage, setProfileImage] = useState(null);
@@ -41,7 +43,7 @@ const Navbar = () => {
   }, [token]);
 
   const handleLogout = () => {
-    localStorage.clear();
+    logout();
     navigate("/login");
   };
 

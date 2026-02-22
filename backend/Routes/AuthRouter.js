@@ -1,5 +1,5 @@
 import express from "express";
-import { signupInit, verifyOtp, login } from "../Controllers/AuthController.js";
+import { signupInit, verifyOtp, login, verifyToken } from "../Controllers/AuthController.js";
 import { loginValidation, signupValidation } from "../Middlewares/AuthValidation.js";
 import { signupOtpLimiter, loginLimiter, verifyOtpLimiter } from "../Middlewares/rateLimiter.js";
 
@@ -26,6 +26,12 @@ router.post(
   loginLimiter,
   loginValidation,
   login
+);
+
+// Verify Token Route (for session persistence)
+router.get(
+  "/verify",
+  verifyToken
 );
 
 export default router;

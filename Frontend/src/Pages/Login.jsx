@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import mainbg from '../assets/mainbg.png';
 
 const Login = () => {
@@ -8,6 +9,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login: authLogin } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,9 +37,8 @@ const Login = () => {
         throw new Error(data.message || 'Login failed');
       }
 
-      // ✅ CRITICAL FIX
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      // Use AuthContext to manage login
+      authLogin(data.token, data.user);
 
       if (import.meta.env.MODE === 'development') {
         console.log('Login successful');
