@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-import LandingScreen from "./Pages/LandingScreen"; 
+import LandingScreen from "./Pages/LandingScreen";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import GetStarted from "./Pages/GetStarted";
@@ -20,8 +20,7 @@ import MyMatches from "./Pages/MyMatches";
 import Profile from "./Pages/Profile";
 
 // 🔥 CHAT PAGES (to be created next)
-import ChatListPage from "./Pages/ChatListPage";
-import ChatPage from "./Pages/ChatPage";
+import ChatLayoutPage from "./Pages/ChatLayoutPage";
 
 const App = () => {
   return (

@@ -3,7 +3,6 @@ import ChatModel from "../Modules/Chat.js";
 import { sendEmail } from "../utils/emailService.js";
 import logger from "../utils/logger.js";
 
-/* ===================== SWIPE USER ===================== */
 const swipeUser = async (req, res) => {
   try {
     const { selectedUserId } = req.body;
@@ -28,10 +27,15 @@ const swipeUser = async (req, res) => {
       });
     }
 
-    if (
-      user.matches.includes(selectedUserId) ||
-      user.selectedUsers.includes(selectedUserId)
-    ) {
+    const alreadyMatched = user.matches.some(
+      (id) => id.toString() === selectedUserId
+    );
+
+    const alreadySelected = user.selectedUsers.some(
+      (id) => id.toString() === selectedUserId
+    );
+
+    if (alreadyMatched || alreadySelected) {
       return res.status(400).json({
         success: false,
         message: "User already selected or matched",
@@ -70,7 +74,6 @@ Check your pending requests and respond before someone else teams up 😉
   }
 };
 
-/* ===================== ACCEPT REQUEST ===================== */
 const acceptRequest = async (req, res) => {
   try {
     const { requesterId } = req.body;
@@ -88,29 +91,41 @@ const acceptRequest = async (req, res) => {
       });
     }
 
-    if (!user.pendingRequests.includes(requesterId)) {
+    const hasPending = user.pendingRequests.some(
+      (id) => id.toString() === requesterId
+    );
+
+    if (!hasPending) {
       return res.status(400).json({
         success: false,
         message: "No pending request",
       });
     }
 
-    // cleanup
     user.pendingRequests = user.pendingRequests.filter(
       (id) => id.toString() !== requesterId
     );
+
     requester.selectedUsers = requester.selectedUsers.filter(
       (id) => id.toString() !== userId
     );
 
-    if (!user.matches.includes(requesterId)) {
+    const alreadyMatchedUser = user.matches.some(
+      (id) => id.toString() === requesterId
+    );
+
+    if (!alreadyMatchedUser) {
       user.matches.push(requesterId);
     }
-    if (!requester.matches.includes(userId)) {
+
+    const alreadyMatchedRequester = requester.matches.some(
+      (id) => id.toString() === userId
+    );
+
+    if (!alreadyMatchedRequester) {
       requester.matches.push(userId);
     }
 
-    // create chat if not exists
     const existingChat = await ChatModel.findOne({
       participants: { $all: [userId, requesterId] },
     });
@@ -162,7 +177,6 @@ The chat is now open — break the ice and get to work!
   }
 };
 
-/* ===================== REJECT REQUEST ===================== */
 const rejectRequest = async (req, res) => {
   try {
     const { requesterId } = req.body;
@@ -183,6 +197,7 @@ const rejectRequest = async (req, res) => {
     user.pendingRequests = user.pendingRequests.filter(
       (id) => id.toString() !== requesterId
     );
+
     requester.selectedUsers = requester.selectedUsers.filter(
       (id) => id.toString() !== userId
     );
@@ -202,11 +217,11 @@ const rejectRequest = async (req, res) => {
   }
 };
 
-/* ===================== GET MATCHES ===================== */
 const getMatches = async (req, res) => {
-  const user = await UserModel.findById(req.user.id).populate(
-    "matches",
-    `
+  try {
+    const user = await UserModel.findById(req.user.id).populate(
+      "matches",
+      `
       name
       bio
       age
@@ -225,19 +240,33 @@ const getMatches = async (req, res) => {
       linkedin
       instagram
     `
-  );
+    );
 
-  res.json({
-    success: true,
-    matches: user.matches || [],
-  });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.json({
+      success: true,
+      matches: user.matches || [],
+    });
+  } catch (err) {
+    logger.error("getMatches error:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch matches",
+    });
+  }
 };
 
-/* ===================== GET SELECTED USERS ===================== */
 const getSelectedUsers = async (req, res) => {
-  const user = await UserModel.findById(req.user.id).populate(
-    "selectedUsers",
-    `
+  try {
+    const user = await UserModel.findById(req.user.id).populate(
+      "selectedUsers",
+      `
       name
       bio
       age
@@ -256,19 +285,33 @@ const getSelectedUsers = async (req, res) => {
       linkedin
       instagram
     `
-  );
+    );
 
-  res.json({
-    success: true,
-    selectedUsers: user.selectedUsers || [],
-  });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.json({
+      success: true,
+      selectedUsers: user.selectedUsers || [],
+    });
+  } catch (err) {
+    logger.error("getSelectedUsers error:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch selected users",
+    });
+  }
 };
 
-/* ===================== GET PENDING REQUESTS ===================== */
 const getPendingRequests = async (req, res) => {
-  const user = await UserModel.findById(req.user.id).populate(
-    "pendingRequests",
-    `
+  try {
+    const user = await UserModel.findById(req.user.id).populate(
+      "pendingRequests",
+      `
       name
       bio
       age
@@ -287,12 +330,26 @@ const getPendingRequests = async (req, res) => {
       linkedin
       instagram
     `
-  );
+    );
 
-  res.json({
-    success: true,
-    pendingRequests: user.pendingRequests || [],
-  });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.json({
+      success: true,
+      pendingRequests: user.pendingRequests || [],
+    });
+  } catch (err) {
+    logger.error("getPendingRequests error:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch pending requests",
+    });
+  }
 };
 
 export {

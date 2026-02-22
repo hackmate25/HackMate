@@ -7,57 +7,89 @@ export const initSocket = (httpServer) => {
     cors: {
       origin: [
         "http://localhost:5173",
-        "https://hack-mate-ten.vercel.app",
+        "https://hackmate-official.vercel.app",
       ],
       credentials: true,
     },
   });
 
-  // 🔐 SOCKET AUTH (JWT)
+  /*SOCKET AUTH MIDDLEWARE*/
   io.use((socket, next) => {
     try {
       const token = socket.handshake.auth?.token;
       if (!token) throw new Error("Token missing");
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      socket.userId = decoded.id; // ✅ SINGLE SOURCE OF TRUTH
+      socket.userId = decoded.id;
+
       next();
     } catch (err) {
       if (process.env.NODE_ENV !== "production") {
-        console.error("Socket auth error");
+        console.error("Socket auth error:", err.message);
       }
       next(new Error("Unauthorized"));
     }
   });
 
+  /*CONNECTION HANDLER*/
   io.on("connection", (socket) => {
-    // Socket connected
 
-    // 🔹 Join specific chat room
-    socket.on("join-chat", (chatId) => {
-      if (!chatId) return;
-      socket.join(chatId);
+    /* JOIN CHAT (Secure + Delivered)*/
+    socket.on("join-chat", async (chatId) => {
+      try {
+        if (!chatId) return;
+
+        const chat = await ChatModel.findOne({
+          _id: chatId,
+          participants: socket.userId,
+        });
+
+        if (!chat) {
+          socket.emit("unauthorized-chat");
+          return;
+        }
+
+        socket.join(chatId);
+
+        // Mark all messages as delivered for this user
+        await ChatModel.updateOne(
+          { _id: chatId },
+          {
+            $addToSet: {
+              "messages.$[].deliveredTo": socket.userId,
+            },
+          }
+        );
+
+        io.to(chatId).emit("messages-delivered", {
+          userId: socket.userId,
+        });
+
+      } catch (err) {
+        if (process.env.NODE_ENV !== "production") {
+          console.error("Join chat error:", err.message);
+        }
+        socket.emit("unauthorized-chat");
+      }
     });
 
-    // 🔹 Send message
+
+    /* SEND MESSAGE */
     socket.on("send-message", async ({ chatId, text }) => {
       try {
         if (!chatId || !text?.trim()) return;
 
-        const chat = await ChatModel.findById(chatId);
+        const chat = await ChatModel.findOne({
+          _id: chatId,
+          participants: socket.userId,
+        });
+
         if (!chat || chat.isLocked) {
           socket.emit("chat-locked");
           return;
         }
 
-        // 🔒 Ensure sender is part of chat
-        const isParticipant = chat.participants
-          .map((id) => id.toString())
-          .includes(socket.userId);
-
-        if (!isParticipant) return;
-
-        // 🚫 Message limit check
+        // Enforce message limit
         if (chat.messages.length >= chat.messageLimit) {
           chat.isLocked = true;
           await chat.save();
@@ -65,21 +97,25 @@ export const initSocket = (httpServer) => {
           return;
         }
 
-        // ✅ Save message in DB (sender as ObjectId)
         const message = {
           sender: socket.userId,
           text: text.trim(),
+          deliveredTo: [socket.userId],
+          readBy: [socket.userId],
         };
 
         chat.messages.push(message);
         await chat.save();
 
-        // 📡 Broadcast message (CONSISTENT FORMAT)
+        // Emit full structured message
         io.to(chatId).emit("new-message", {
-          sender: { _id: socket.userId }, // 🔥 ALWAYS OBJECT
+          sender: { _id: socket.userId },
           text: message.text,
-          createdAt: new Date(),
+          createdAt: message.createdAt,
+          deliveredTo: message.deliveredTo,
+          readBy: message.readBy,
         });
+
       } catch (err) {
         if (process.env.NODE_ENV !== "production") {
           console.error("Socket message error:", err);
@@ -87,8 +123,44 @@ export const initSocket = (httpServer) => {
       }
     });
 
-    socket.on("disconnect", () => {
-      // Socket disconnected
+
+    /*MARK AS READ*/
+    socket.on("mark-read", async (chatId) => {
+      try {
+        if (!chatId) return;
+
+        const chat = await ChatModel.findOne({
+          _id: chatId,
+          participants: socket.userId,
+        });
+
+        if (!chat) return;
+
+        await ChatModel.updateOne(
+          { _id: chatId },
+          {
+            $addToSet: {
+              "messages.$[].readBy": socket.userId,
+            },
+          }
+        );
+
+        io.to(chatId).emit("messages-read", {
+          userId: socket.userId,
+        });
+
+      } catch (err) {
+        if (process.env.NODE_ENV !== "production") {
+          console.error("Mark read error:", err);
+        }
+      }
     });
+
+
+    /*DISCONNECT*/
+    socket.on("disconnect", () => {
+      // Optional: add online/offline tracking later
+    });
+
   });
 };

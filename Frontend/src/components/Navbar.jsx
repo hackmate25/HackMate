@@ -11,10 +11,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
-const API_URL =
-  import.meta.env.MODE === "development"
-    ? "http://localhost:3000"
-    : "https://hackmate-ybgv.onrender.com";
+const API_URL = (
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+).replace(/\/$/, "");
 
 const Navbar = () => {
   const navigate = useNavigate();
