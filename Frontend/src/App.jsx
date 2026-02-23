@@ -46,8 +46,7 @@ const App = () => {
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
           {/* 🔥 CHAT SYSTEM - Protected */}
-          <Route path="/chat" element={<ProtectedRoute><ChatListPage /></ProtectedRoute>} />
-          <Route path="/chat/:chatId" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+          <Route path="/chat" element={<ChatLayoutPage />} />
 
           {/* Fallback */}
           <Route path="*" element={<LandingScreen />} />
