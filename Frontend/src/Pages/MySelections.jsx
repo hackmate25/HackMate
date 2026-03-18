@@ -35,12 +35,12 @@ const MySelections = () => {
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => navigate("/discover")}
-            className="w-10 h-10 md:w-12 md:h-12 bg-white/70 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-200 border border-white/20 cursor-pointer"
+            className="w-10 h-10 md:w-12 md:h-12 bg-white/70 backdrop-blur-sm rounded-full shadow-md flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-200 border border-white/20 cursor-pointer"
           >
             ←
           </button>
 
-          <div className="bg-white/70 backdrop-blur-sm px-5 md:px-8 py-2 md:py-3 rounded-full shadow-lg font-semibold text-gray-800 border border-white/20 text-sm md:text-base">
+          <div className="bg-white/70 backdrop-blur-sm px-5 md:px-8 py-2 md:py-3 rounded-full shadow-md font-semibold text-gray-800 border border-white/20 text-sm md:text-base">
             My Selections ({users.length})
           </div>
         </div>

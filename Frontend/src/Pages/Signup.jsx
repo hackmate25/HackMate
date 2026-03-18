@@ -147,7 +147,7 @@ const Signup = () => {
               onChange={(e) => setName(e.target.value)}
               required
               disabled={loading}
-              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-gray-100/90 placeholder-gray-400/80 focus:outline-none focus:ring-2 focus:ring-blue-300/60 focus:border-blue-400 focus:bg-white shadow-inner text-sm sm:text-base transition-all duration-200 border border-transparent"
             />
             <input
               type="email"
@@ -156,7 +156,7 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
-              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-gray-100/90 placeholder-gray-400/80 focus:outline-none focus:ring-2 focus:ring-blue-300/60 focus:border-blue-400 focus:bg-white shadow-inner text-sm sm:text-base transition-all duration-200 border border-transparent"
             />
             <input
               type="password"
@@ -166,7 +166,7 @@ const Signup = () => {
               required
               minLength="6"
               disabled={loading}
-              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-gray-100/90 placeholder-gray-400/80 focus:outline-none focus:ring-2 focus:ring-blue-300/60 focus:border-blue-400 focus:bg-white shadow-inner text-sm sm:text-base transition-all duration-200 border border-transparent"
             />
             <input
               type="password"
@@ -176,12 +176,12 @@ const Signup = () => {
               required
               minLength="6"
               disabled={loading}
-              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-gray-100/90 placeholder-gray-400/80 focus:outline-none focus:ring-2 focus:ring-blue-300/60 focus:border-blue-400 focus:bg-white shadow-inner text-sm sm:text-base transition-all duration-200 border border-transparent"
             />
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2 sm:py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center cursor-pointer text-sm sm:text-base font-medium"
+              className="w-full py-2.5 sm:py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-all duration-200 flex items-center justify-center cursor-pointer text-sm sm:text-base font-medium shadow-md hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed"
             >
               {loading ? "Sending OTP..." : "Create Account"}
             </button>
@@ -195,12 +195,12 @@ const Signup = () => {
               onChange={(e) => setOtp(e.target.value)}
               required
               disabled={loading}
-              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-gray-100/90 placeholder-gray-400/80 focus:outline-none focus:ring-2 focus:ring-blue-300/60 focus:border-blue-400 focus:bg-white shadow-inner text-sm sm:text-base transition-all duration-200 border border-transparent text-center tracking-[0.3em] text-lg"
             />
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2 sm:py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center cursor-pointer text-sm sm:text-base font-medium"
+              className="w-full py-2.5 sm:py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-all duration-200 flex items-center justify-center cursor-pointer text-sm sm:text-base font-medium shadow-md hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed"
             >
               {loading ? "Verifying OTP..." : "Verify & Signup"}
             </button>
@@ -208,7 +208,7 @@ const Signup = () => {
               type="button"
               onClick={handleResendOtp}
               disabled={cooldown > 0}
-              className="w-full py-2 bg-gray-200 text-[#395EAA] rounded-xl hover:bg-gray-300 transition-colors flex items-center justify-center cursor-pointer text-xs sm:text-sm font-medium"
+              className="w-full py-2 bg-gray-200 text-[#395EAA] rounded-xl hover:bg-gray-300 transition-all duration-200 flex items-center justify-center cursor-pointer text-xs sm:text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.98]"
             >
               {cooldown > 0 ? `Resend OTP in ${cooldown}s` : "Resend OTP"}
             </button>
@@ -220,7 +220,7 @@ const Signup = () => {
             Already have an account?{" "}
             <button
               onClick={() => navigate("/login")}
-              className="text-[#395EAA] hover:underline font-semibold cursor-pointer"
+              className="text-[#395EAA] hover:underline font-semibold cursor-pointer transition-colors duration-200 hover:text-blue-700"
             >
               Login
             </button>

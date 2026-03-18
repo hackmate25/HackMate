@@ -110,7 +110,7 @@ const ChatSidebar = ({ selectedChatId, setSelectedChatId }) => {
               onClick={() => setSelectedChatId(chat._id)}
               className={`flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-3 sm:py-4 cursor-pointer transition-all duration-200 border-b border-white/30 min-h-[56px] ${
                 selectedChatId === chat._id
-                  ? "bg-white/80 shadow-md border-l-4 border-l-blue-500"
+                  ? "bg-white/80 shadow-sm border-l-4 border-l-blue-500"
                   : "hover:bg-white/60"
               }`}
             >
@@ -119,7 +119,8 @@ const ChatSidebar = ({ selectedChatId, setSelectedChatId }) => {
                 className="w-10 h-10 sm:w-12 sm:h-12 rounded-full 
                 bg-gradient-to-br from-blue-400 to-indigo-500 
                 flex items-center justify-center text-white 
-                font-bold shadow-md flex-shrink-0 text-sm sm:text-base"
+                font-bold shadow-md flex-shrink-0 text-sm sm:text-base
+                transition-transform duration-200"
               >
                 {otherUser?.name?.charAt(0)}
               </motion.div>

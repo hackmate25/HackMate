@@ -45,12 +45,13 @@ const UserOverlay = ({ user, onClose, showAccept, onAccept, onReject }) => {
     >
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        initial={{ scale: 0.95, y: 40 }}
-        animate={{ scale: 1, y: 0 }}
+        initial={{ scale: 0.95, y: 40, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
         className="
           w-full max-w-5xl
           h-[92vh] md:h-[75vh]
-          bg-white rounded-2xl shadow-xl
+          bg-white rounded-2xl shadow-2xl border border-gray-100
           flex flex-col md:flex-row
           overflow-hidden relative
         "
@@ -58,7 +59,7 @@ const UserOverlay = ({ user, onClose, showAccept, onAccept, onReject }) => {
         {/* CLOSE */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 w-9 h-9 bg-red-100 text-red-600 rounded-full flex items-center justify-center hover:scale-110 hover:bg-red-200 z-10 cursor-pointer transition"
+          className="absolute top-3 right-3 w-9 h-9 bg-red-100 text-red-600 rounded-full flex items-center justify-center hover:scale-110 hover:bg-red-200 z-10 cursor-pointer transition-all duration-200"
         >
           <X size={18} />
         </button>
@@ -72,7 +73,7 @@ const UserOverlay = ({ user, onClose, showAccept, onAccept, onReject }) => {
         </div>
 
         {/* DETAILS */}
-        <div className="flex-1 p-5 md:p-8 overflow-y-auto space-y-2 text-sm md:text-base relative">
+        <div className="flex-1 p-5 md:p-8 overflow-y-auto space-y-3 text-sm md:text-base relative">
           <h2 className="text-2xl md:text-3xl font-bold">
             {safeText(user.name)}
           </h2>

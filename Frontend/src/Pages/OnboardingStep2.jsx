@@ -111,20 +111,25 @@ export default function OnboardingStep2({ onNext, onBack }) {
           </h2>
         </div>
 
-        <div className="flex-1 bg-white/70 backdrop-blur-md p-10 rounded-2xl shadow-lg">
+        <div className="flex-1 bg-white/70 backdrop-blur-md p-10 rounded-2xl shadow-xl">
           <h1 className="text-3xl font-extrabold text-blue-900 mb-8 text-center">
             Tell us about yourself
           </h1>
 
-          {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+          {error && (
+            <div className="bg-red-50/90 backdrop-blur-sm border border-red-300 text-red-700 rounded-xl text-sm p-3 mb-6 flex items-center gap-2 shadow-sm">
+              <span className="text-red-500 flex-shrink-0">⚠</span>
+              <span>{error}</span>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <input name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" className="p-3 rounded-xl border" />
-            <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="Age" className="p-3 rounded-xl border" />
-            <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Phone Number" className="p-3 rounded-xl border" />
-            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Personal Email" className="p-3 rounded-xl border" />
+            <input name="name" value={formData.name} onChange={handleChange} placeholder="Full Name" className="p-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200 placeholder-gray-400/80" />
+            <input type="number" name="age" value={formData.age} onChange={handleChange} placeholder="Age" className="p-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200 placeholder-gray-400/80" />
+            <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Phone Number" className="p-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200 placeholder-gray-400/80" />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Personal Email" className="p-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200 placeholder-gray-400/80" />
 
-            <select name="year" value={formData.year} onChange={handleChange} className="p-3 rounded-xl border">
+            <select name="year" value={formData.year} onChange={handleChange} className="p-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200 cursor-pointer">
               <option value="">Year of Study</option>
               <option value="1st Year">1st Year</option>
               <option value="2nd Year">2nd Year</option>
@@ -132,7 +137,7 @@ export default function OnboardingStep2({ onNext, onBack }) {
               <option value="4th Year">4th Year</option>
             </select>
 
-            <select name="gender" value={formData.gender} onChange={handleChange} className="p-3 rounded-xl border">
+            <select name="gender" value={formData.gender} onChange={handleChange} className="p-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200 cursor-pointer">
               <option value="">Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -144,7 +149,7 @@ export default function OnboardingStep2({ onNext, onBack }) {
               value={formData.regNo}
               onChange={handleChange}
               placeholder="Registration Number (RAxxxxxxxxxxxxx)"
-              className="md:col-span-2 p-3 rounded-xl border"
+              className="md:col-span-2 p-3 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200 placeholder-gray-400/80"
             />
           </div>
 
@@ -155,7 +160,7 @@ export default function OnboardingStep2({ onNext, onBack }) {
                 onBack?.();
                 navigate("/details");
               }}
-              className="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded-xl flex items-center gap-2 cursor-pointer transition"
+              className="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded-xl flex items-center gap-2 cursor-pointer transition-all duration-200 active:scale-[0.97] shadow-sm"
             >
               <ArrowLeft size={18} /> Back
             </button>
@@ -165,7 +170,7 @@ export default function OnboardingStep2({ onNext, onBack }) {
               disabled={loading}
               className={`${
                 loading ? "bg-green-300" : "bg-green-500 hover:bg-green-600"
-              } text-white px-6 py-2 rounded-xl flex items-center gap-2 cursor-pointer transition`}
+              } text-white px-6 py-2 rounded-xl flex items-center gap-2 cursor-pointer transition-all duration-200 active:scale-[0.97] shadow-md hover:shadow-lg disabled:cursor-not-allowed`}
             >
               {loading ? "Saving..." : <>Next <ArrowRight size={18} /></>}
             </button>

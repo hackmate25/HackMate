@@ -81,10 +81,10 @@ const Navbar = () => {
         <div className="px-3 sm:px-4 space-y-2 sm:space-y-3 pb-4 sm:pb-6 border-b border-gray-200/50">
           <button
             onClick={() => navigate("/chat")}
-            className={`w-full flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition cursor-pointer min-h-10 ${
+            className={`w-full flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 cursor-pointer min-h-10 ${
               isActive("/chat")
-                ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg"
-                : "bg-white/50 hover:bg-white/80 text-gray-700"
+                ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/25"
+                : "bg-white/50 hover:bg-white/80 text-gray-700 hover:translate-x-1"
             }`}
           >
             <MessageCircle size={20} className="flex-shrink-0" />
@@ -93,10 +93,10 @@ const Navbar = () => {
 
           <button
             onClick={() => navigate("/profile")}
-            className={`w-full flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition cursor-pointer min-h-10 ${
+            className={`w-full flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 cursor-pointer min-h-10 ${
               isActive("/profile")
-                ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg"
-                : "bg-white/50 hover:bg-white/80 text-gray-700"
+                ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/25"
+                : "bg-white/50 hover:bg-white/80 text-gray-700 hover:translate-x-1"
             }`}
           >
             <img
@@ -117,10 +117,10 @@ const Navbar = () => {
             <button
               key={path}
               onClick={() => navigate(path)}
-              className={`w-full flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-3 rounded-xl transition cursor-pointer text-sm sm:text-base min-h-10 ${
+              className={`w-full flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-3 rounded-xl transition-all duration-200 cursor-pointer text-sm sm:text-base min-h-10 ${
                 isActive(path)
-                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg"
-                  : "bg-white/30 hover:bg-white/60 text-gray-700"
+                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/25"
+                  : "bg-white/30 hover:bg-white/60 text-gray-700 hover:translate-x-1"
               }`}
             >
               <Icon size={20} className="flex-shrink-0" />
@@ -133,7 +133,7 @@ const Navbar = () => {
         <div className="px-3 sm:px-4 py-4 sm:py-6 border-t border-gray-200/50">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white font-semibold text-sm sm:text-base shadow-lg hover:scale-105 transition cursor-pointer min-h-10"
+            className="w-full flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white font-semibold text-sm sm:text-base shadow-lg hover:scale-105 active:scale-[0.98] transition-all duration-200 cursor-pointer min-h-10"
           >
             <LogOut size={20} className="flex-shrink-0" />
             <span className="hidden sm:inline">Logout</span>
@@ -145,7 +145,7 @@ const Navbar = () => {
       {/* ================= MOBILE HEADER ================= */}
       {/* ================================================= */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-white/80 backdrop-blur-xl border-b flex items-center px-3 sm:px-4 z-40 justify-between">
-        <button onClick={() => setOpen(true)} className="cursor-pointer hover:opacity-70 transition min-h-10 min-w-10 flex items-center justify-center">
+        <button onClick={() => setOpen(true)} className="cursor-pointer hover:opacity-70 transition-all duration-200 min-h-10 min-w-10 flex items-center justify-center">
           <Menu size={24} />
         </button>
 
