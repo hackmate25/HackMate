@@ -39,7 +39,7 @@
             Find your <span className="text-[#395EAA] font-semibold">mate!</span>
         </motion.h3>
         <motion.button
-            className="mt-5 px-6 sm:px-10 py-2 sm:py-3 bg-[#1D4B9AD6] text-white text-base sm:text-lg font-semibold rounded-2xl shadow-lg hover:bg-[#042f76] transition duration-200 cursor-pointer"
+            className="mt-5 px-6 sm:px-10 py-2 sm:py-3 bg-[#1D4B9AD6] text-white text-base sm:text-lg font-semibold rounded-2xl shadow-xl hover:shadow-2xl hover:bg-[#042f76] transition-all duration-200 cursor-pointer"
             initial={{ opacity: 0, scale: 0.8, y: 100 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.0, ease: "easeOut" }}

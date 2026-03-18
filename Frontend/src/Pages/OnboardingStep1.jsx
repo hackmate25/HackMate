@@ -28,7 +28,7 @@ export default function OnboardingStep1({ onNext, onBack }) {
         </div>
 
         {/* Right panel */}
-        <div className="flex-1 bg-white/70 backdrop-blur-md p-6 sm:p-10 rounded-2xl shadow-lg text-center">
+        <div className="flex-1 bg-white/70 backdrop-blur-md p-6 sm:p-10 rounded-2xl shadow-xl text-center">
           <h1 className="text-xl sm:text-3xl font-extrabold text-blue-900 mb-4 sm:mb-6">
             Upload Your Info
           </h1>
@@ -38,11 +38,11 @@ export default function OnboardingStep1({ onNext, onBack }) {
           </p>
 
           <div className="flex flex-col gap-3 sm:gap-4">
-            <button className="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-xl transition-all duration-200 cursor-pointer w-full">
+            <button className="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-xl transition-all duration-200 cursor-pointer w-full shadow-md hover:shadow-lg active:scale-[0.98]">
               Upload Using Resume
             </button>
             <button
-              className="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer w-full"
+              className="bg-blue-400 hover:bg-blue-500 text-white font-semibold py-2 sm:py-3 text-sm sm:text-base rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer w-full shadow-md hover:shadow-lg active:scale-[0.98]"
               onClick={() => {
                 setProgress(40);
                 onNext?.();
@@ -59,7 +59,7 @@ export default function OnboardingStep1({ onNext, onBack }) {
               onClick={() => {
                 navigate('/get-started') // Go back if no handler is passed
               }}
-              className="flex items-center justify-center gap-2 text-gray-800 bg-gray-300 hover:bg-gray-400 font-bold py-2 px-4 text-sm sm:text-base border border-blue-400 rounded-xl transition-all duration-200 cursor-pointer w-full sm:w-auto"
+              className="flex items-center justify-center gap-2 text-gray-800 bg-gray-300 hover:bg-gray-400 font-bold py-2 px-4 text-sm sm:text-base border border-blue-400 rounded-xl transition-all duration-200 cursor-pointer w-full sm:w-auto active:scale-[0.97] shadow-sm"
             >
               <ArrowLeft className="w-5 h-5" />
               Back

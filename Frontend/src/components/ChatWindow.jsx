@@ -157,7 +157,7 @@ const ChatWindow = ({ selectedChatId, setSelectedChatId }) => {
     <div className="flex-1 flex flex-col bg-gradient-to-b from-blue-50 to-white">
 
       {/* HEADER */}
-      <div className="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center px-4 font-semibold">
+      <div className="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center px-4 font-semibold shadow-md">
         <button
           onClick={() => setSelectedChatId(null)}
           className="lg:hidden mr-3"
@@ -195,7 +195,7 @@ const ChatWindow = ({ selectedChatId, setSelectedChatId }) => {
 
               <div className="flex flex-col max-w-xs sm:max-w-sm lg:max-w-[70%]">
                 <div
-                  className={`px-4 py-2 rounded-xl text-sm shadow-md ${
+                  className={`px-4 py-2 rounded-xl text-sm shadow-sm ${
                     isMe
                       ? "bg-gradient-to-r from-green-400 to-emerald-400 text-white"
                       : "bg-white text-gray-800"
@@ -241,13 +241,13 @@ const ChatWindow = ({ selectedChatId, setSelectedChatId }) => {
               ? "Chat locked (limit reached)"
               : "Type a message..."
           }
-          className="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2 focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none"
+          className="flex-1 border-2 border-gray-200 rounded-xl px-4 py-2 focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-200 placeholder-gray-400/80"
         />
 
         <button
           onClick={sendMessage}
           disabled={locked || !text.trim()}
-          className="bg-green-500 text-white px-6 py-2 rounded-xl disabled:opacity-50"
+          className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl disabled:opacity-50 transition-all duration-200 active:scale-[0.95] cursor-pointer shadow-md hover:shadow-lg"
         >
           <Send size={18} />
         </button>

@@ -169,7 +169,7 @@ const Profile = () => {
 
                 <button
                   onClick={() => setEdit(true)}
-                  className="mt-8 px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105 cursor-pointer"
+                  className="mt-8 px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-[0.98] cursor-pointer"
                 >
                   Edit Profile ✏️
                 </button>
@@ -214,11 +214,11 @@ const Profile = () => {
 
                 <div className="col-span-1 md:col-span-2 flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
                   <button onClick={handleSave}
-                    className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105 cursor-pointer">
+                    className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-[0.98] cursor-pointer">
                     Save Changes
                   </button>
                   <button onClick={() => setEdit(false)}
-                    className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-200 cursor-pointer">
+                    className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-200 active:scale-[0.98] cursor-pointer">
                     Cancel
                   </button>
                 </div>
@@ -256,8 +256,8 @@ const Display = ({ label, value }) => {
 
   return (
     <div className="mb-6">
-      <p className="text-sm font-medium text-gray-600 mb-2">{label}</p>
-      <div className="bg-gray-100 rounded-2xl px-5 py-4 whitespace-pre-wrap break-all leading-relaxed">
+      <p className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">{label}</p>
+      <div className="bg-gray-100 border border-gray-100 rounded-2xl px-5 py-4 whitespace-pre-wrap break-all leading-relaxed">
         {value ? (
           isLink ? (
             <a
@@ -281,11 +281,11 @@ const Display = ({ label, value }) => {
 
 const TagView = ({ label, values }) => (
   <div className="mb-6">
-    <p className="text-sm font-medium text-gray-600 mb-2">{label}</p>
-    <div className="bg-gray-100 rounded-2xl px-4 py-3 flex flex-wrap gap-2">
+    <p className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">{label}</p>
+    <div className="bg-gray-100 border border-gray-100 rounded-2xl px-4 py-3 flex flex-wrap gap-2">
       {values?.length
         ? values.map((v, i) => (
-            <span key={i} className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm">
+            <span key={i} className="bg-blue-500/90 text-white px-4 py-1 rounded-full text-sm shadow-sm">
               {v}
             </span>
           ))
@@ -305,10 +305,10 @@ const TagInput = ({ label, values, setValues }) => {
 
   return (
     <div className="col-span-2">
-      <p className="text-sm font-medium text-gray-600 mb-2">{label}</p>
-      <div className="bg-gray-100 rounded-2xl px-4 py-3 flex flex-wrap gap-2">
+      <p className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">{label}</p>
+      <div className="bg-gray-100 border border-gray-100 rounded-2xl px-4 py-3 flex flex-wrap gap-2">
         {values.map((v, i) => (
-          <span key={i} className="bg-blue-500 text-white px-4 py-1 rounded-full flex gap-2">
+          <span key={i} className="bg-blue-500/90 text-white px-4 py-1 rounded-full flex gap-2 shadow-sm">
             {v}
             <button onClick={() => setValues(values.filter((_, x) => x !== i))} className="cursor-pointer hover:opacity-70 transition">
               ×
@@ -335,7 +335,7 @@ const Input = ({ label, value, onChange }) => (
     <input
       value={value || ""}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-gray-100 rounded-2xl px-4 py-3"
+      className="w-full bg-gray-100 border border-gray-100 rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200"
     />
   </div>
 );
@@ -347,7 +347,7 @@ const Textarea = ({ label, value, onChange }) => (
       rows={3}
       value={value || ""}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-gray-100 rounded-2xl px-4 py-3 resize-none"
+      className="w-full bg-gray-100 border border-gray-100 rounded-2xl px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:border-blue-400 transition-all duration-200"
     />
   </div>
 );

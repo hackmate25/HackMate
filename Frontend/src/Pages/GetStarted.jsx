@@ -65,7 +65,7 @@ const GetStarted = () => {
             <motion.div className="space-y-2 sm:space-y-3 lg:space-y-4 flex-1">
               {/* Question 1 */}
               <motion.div
-                className="bg-[#86B3FF] rounded-lg p-8 cursor-pointer"
+                className="bg-[#86B3FF] rounded-lg p-8 cursor-pointer shadow-md"
                 variants={itemVariants}
                 whileHover="hover"
                  initial={{ opacity: 0, y: -100 }}
@@ -79,7 +79,7 @@ const GetStarted = () => {
 
               {/* Question 2 */}
               <motion.div
-                className="bg-[#6EA2D9] rounded-lg p-8 cursor-pointer"
+                className="bg-[#6EA2D9] rounded-lg p-8 cursor-pointer shadow-md"
                 variants={itemVariants}
                 whileHover="hover"
                  initial={{ opacity: 0, x: 100 }}
@@ -93,7 +93,7 @@ const GetStarted = () => {
 
               {/* Question 3 */}
               <motion.div
-                className="bg-[#3C65AA] rounded-lg p-16 pb-35 cursor-pointer"
+                className="bg-[#3C65AA] rounded-lg p-16 pb-35 cursor-pointer shadow-md"
                 variants={itemVariants}
                 whileHover="hover"
                  initial={{ opacity: 0, y: 100 }}
@@ -112,7 +112,7 @@ const GetStarted = () => {
               variants={buttonVariants}
             >
               <motion.button
-                className="bg-[#3DB659] hover:bg-green-600 text-white font-semibold px-8 py-2 rounded-lg flex items-center gap-2 cursor-pointer transition-colors shadow-lg"
+                className="bg-[#3DB659] hover:bg-green-600 text-white font-semibold px-8 py-2 rounded-lg flex items-center gap-2 cursor-pointer transition-all duration-200 shadow-lg active:scale-95"
                 variants={buttonVariants}
                 whileHover="hover"
                 onClick={() => navigate('/details')}

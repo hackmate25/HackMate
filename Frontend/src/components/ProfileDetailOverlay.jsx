@@ -12,7 +12,7 @@ const panelVariants = {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
@@ -67,13 +67,13 @@ const ProfileDetailOverlay = ({ user, onClose, onSelect }) => {
           bg-[#0B1C35]
           rounded-2xl overflow-hidden
           flex flex-col md:flex-row
-          relative shadow-2xl
+          relative shadow-2xl border border-white/10
         "
       >
         {/* CLOSE */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-20 text-white hover:text-red-400 cursor-pointer transition"
+          className="absolute top-3 right-3 z-20 text-white hover:text-red-400 hover:bg-white/10 rounded-full p-1 cursor-pointer transition-all duration-200"
         >
           <X size={26} />
         </button>
@@ -92,7 +92,7 @@ const ProfileDetailOverlay = ({ user, onClose, onSelect }) => {
             {safeText(user.name)}
           </h1>
 
-          <div className="space-y-2 text-sm md:text-lg">
+          <div className="space-y-3 text-sm md:text-lg">
             <p>🎂 Age: {safeText(user.age)}</p>
             <p>⚧ Gender: {safeText(user.gender)}</p>
             <p>🎓 Year: {safeText(user.year)}</p>
@@ -122,7 +122,7 @@ const ProfileDetailOverlay = ({ user, onClose, onSelect }) => {
           {/* STAR */}
           <button
             onClick={onSelect}
-            className="absolute bottom-4 right-4 text-yellow-400 hover:scale-125 transition cursor-pointer"
+            className="absolute bottom-4 right-4 text-yellow-400 hover:scale-125 transition-all duration-200 cursor-pointer"
           >
             <Star size={34} fill="currentColor" />
           </button>

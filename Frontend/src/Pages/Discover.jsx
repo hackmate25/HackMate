@@ -18,8 +18,8 @@ const swipeVariants = {
     scale: 1,
     zIndex: 10,
     transition: {
-      duration: 0.5,
-      ease: [0.32, 0.72, 0, 1] // Custom easing for smooth motion
+      duration: 0.45,
+      ease: [0.25, 0.46, 0.45, 0.94]
     }
   },
   left: {
@@ -31,7 +31,7 @@ const swipeVariants = {
     zIndex: 0,
     transition: {
       duration: 0.5,
-      ease: [0.32, 0.72, 0, 1]
+      ease: [0.25, 0.46, 0.45, 0.94]
     }
   },
   right: {
@@ -43,7 +43,7 @@ const swipeVariants = {
     zIndex: 0,
     transition: {
       duration: 0.5,
-      ease: [0.32, 0.72, 0, 1]
+      ease: [0.25, 0.46, 0.45, 0.94]
     }
   },
 };
@@ -226,7 +226,7 @@ const Discover = () => {
                 animate={direction || "center"}
                 exit={direction}
                 onClick={() => setActiveUser(user)}
-                className="w-[92vw] max-w-[420px] h-[82vh] max-h-[720px] bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden cursor-pointer relative border border-white/20 z-10"
+                className="w-[92vw] max-w-[420px] h-[82vh] max-h-[720px] bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden cursor-pointer relative border border-white/30 z-10"
               >
                 {/* Image Section */}
                 <div className="relative h-[60%] overflow-hidden">
@@ -259,7 +259,7 @@ const Discover = () => {
                         <p className="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Skills</p>
                         <div className="flex flex-wrap gap-2">
                           {(user.skills || user.techStack)?.slice(0, 5).map((skill, i) => (
-                            <span key={i} className="px-3 py-1 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 rounded-full text-xs font-semibold">
+                            <span key={i} className="px-3 py-1 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 rounded-full text-xs font-semibold shadow-sm">
                               {skill}
                             </span>
                           ))}

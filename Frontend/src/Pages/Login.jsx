@@ -66,8 +66,9 @@ const Login = () => {
         </h1>
 
         {error && (
-          <div className="w-full mb-3 sm:mb-4 p-2 sm:p-3 md:p-4 bg-red-100 border border-red-400 text-red-700 rounded-xl text-xs sm:text-sm">
-            {error}
+          <div className="w-full mb-3 sm:mb-4 p-2.5 sm:p-3 md:p-4 bg-red-50/90 backdrop-blur-sm border border-red-300 text-red-700 rounded-xl text-xs sm:text-sm flex items-center gap-2 shadow-sm">
+            <span className="text-red-500 flex-shrink-0">⚠</span>
+            <span>{error}</span>
           </div>
         )}
 
@@ -80,7 +81,7 @@ const Login = () => {
             placeholder="SRM NetID (Email)"
             value={netID}
             onChange={(e) => setNetID(e.target.value)}
-            className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
+            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-gray-100/90 placeholder-gray-400/80 focus:outline-none focus:ring-2 focus:ring-blue-300/60 focus:border-blue-400 focus:bg-white shadow-inner text-sm sm:text-base transition-all duration-200 border border-transparent"
             required
             disabled={loading}
           />
@@ -90,7 +91,7 @@ const Login = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-inner text-sm sm:text-base"
+            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-gray-100/90 placeholder-gray-400/80 focus:outline-none focus:ring-2 focus:ring-blue-300/60 focus:border-blue-400 focus:bg-white shadow-inner text-sm sm:text-base transition-all duration-200 border border-transparent"
             required
             disabled={loading}
           />
@@ -98,7 +99,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 sm:py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center cursor-pointer text-sm sm:text-base font-medium"
+            className="w-full py-2.5 sm:py-3 bg-[#4A6CB3] text-white rounded-xl hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer text-sm sm:text-base font-medium shadow-md hover:shadow-lg active:scale-[0.98]"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
@@ -109,7 +110,7 @@ const Login = () => {
             Don&apos;t have an account?{' '}
             <button
               onClick={() => navigate('/signup')}
-              className="text-[#395EAA] hover:underline font-semibold cursor-pointer"
+              className="text-[#395EAA] hover:underline font-semibold cursor-pointer transition-colors duration-200 hover:text-blue-700"
             >
               Sign up
             </button>
